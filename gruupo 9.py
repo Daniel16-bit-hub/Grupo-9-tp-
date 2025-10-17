@@ -1,10 +1,15 @@
 """
 -----------------------------------------------------------------------------------------------
-Título:
+Título: Proyecto Empresa de entretenimientos
 Fecha:
-Autor:
+Autor: Mayra Gutierrez
+Bianca Chancalay
+Guido Hirschfeldt
+Daniel Palomino
+Uriel Velardez
 
-Descripción:
+Descripción: Se trata de un sistema informático que ayuda a gestionar las bandas y salones que se asignan a los diferentes eventos, calculando los costos del servicio. Este sistema va a ser usado por un único usuario que se encarga de toda la administración.
+
 
 Pendientes:
 -----------------------------------------------------------------------------------------------
