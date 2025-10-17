@@ -163,7 +163,7 @@ def main():
                     opciones = 4
                     print()
                     print("---------------------------")
-                    print("GESTION DE Eventos")
+                    print("GESTION DE EVENTOS")
                     print("---------------------------")
                     print("[1] Registro de evento")
                     print("[2] Modificar Banda") #2, 3 Y 4 NO DEBERIA ESTAR
