@@ -50,11 +50,11 @@ def main():
             print("---------------------------")
             print("MENÚ PRINCIPAL")
             print("---------------------------")
-            print("[1] Gestión de clientes")
-            print("[2] Opción 2")
-            print("[3] Opción 3")
-            print("[4] Opción 4")
-            print("[5] Opción 5")
+            print("[1] Gestión de Salón")
+            print("[2] Gestión de Bandas")
+            print("[3] Gestión de Eventos")
+            print("[4] Informes")
+            print("[5] Opción 5") #Este lo tendriamos que sacar
             print("---------------------------")
             print("[0] Salir del programa")
             print("---------------------------")
@@ -77,12 +77,12 @@ def main():
                     opciones = 4
                     print()
                     print("---------------------------")
-                    print("MENÚ PRINCIPAL > MENÚ DE CLIENTES")
+                    print("GESTION DE SALON")
                     print("---------------------------")
-                    print("[1] Ingresar clientes")
-                    print("[2] Opción 2")
-                    print("[3] Opción 3")
-                    print("[4] Opción 4")
+                    print("[1] Ingresar Salón")
+                    print("[2] Modificar Salón")
+                    print("[3] Eliminar Salón")
+                    print("[4] Listado de Salones")
                     print("---------------------------")
                     print("[0] Volver al menú anterior")
                     print("---------------------------")
@@ -115,16 +115,135 @@ def main():
 
 
         elif opcionMenuPrincipal == "2":   # Opción 2 del menú principal
-            ...
+            while True:
+                while True:
+                    opciones = 4
+                    print()
+                    print("---------------------------")
+                    print("GESTION DE BANDAS")
+                    print("---------------------------")
+                    print("[1] Ingresar Banda")
+                    print("[2] Modificar Banda")
+                    print("[3] Eliminar Banda")
+                    print("[4] Listado de Bandas")
+                    print("---------------------------")
+                    print("[0] Volver al menú anterior")
+                    print("---------------------------")
+                    print()
+                    
+                    opcionSubmenu = input("Seleccione una opción: ")
+                    if opcionSubmenu in [str(i) for i in range(0, opciones + 1)]: # Sólo continua si se elije una opcion de menú válida
+                        break
+                    else:
+                        input("Opción inválida. Presione ENTER para volver a seleccionar.")
+                print()
+
+                if opcionSubmenu == "0": # Opción salir del submenú
+                    break # No sale del programa, sino que vuelve al menú anterior
+                
+                elif opcionSubmenu == "1":   # Opción 1 del submenú
+                    clientes = altaCliente(clientes)
+                    
+                elif opcionSubmenu == "2":   # Opción 2 del submenú
+                    ...
+                
+                elif opcionSubmenu == "3":   # Opción 3 del submenú
+                    ...
+                
+                elif opcionSubmenu == "4":   # Opción 4 del submenú
+                    ...
+
+                input("\nPresione ENTER para volver al menú.") # Pausa entre opciones
+                print("\n\n")
+
         
         elif opcionMenuPrincipal == "3":   # Opción 3 del menú principal
-            ...
+            while True:
+                while True:
+                    opciones = 4
+                    print()
+                    print("---------------------------")
+                    print("GESTION DE Eventos")
+                    print("---------------------------")
+                    print("[1] Registro de evento")
+                    print("[2] Modificar Banda") #2, 3 Y 4 NO DEBERIA ESTAR
+                    print("[3] Eliminar Banda")
+                    print("[4] Listado de Bandas")
+                    print("---------------------------")
+                    print("[0] Volver al menú anterior")
+                    print("---------------------------")
+                    print()
+                    
+                    opcionSubmenu = input("Seleccione una opción: ")
+                    if opcionSubmenu in [str(i) for i in range(0, opciones + 1)]: # Sólo continua si se elije una opcion de menú válida
+                        break
+                    else:
+                        input("Opción inválida. Presione ENTER para volver a seleccionar.")
+                print()
+
+                if opcionSubmenu == "0": # Opción salir del submenú
+                    break # No sale del programa, sino que vuelve al menú anterior
+                
+                elif opcionSubmenu == "1":   # Opción 1 del submenú
+                    clientes = altaCliente(clientes)
+                    
+                elif opcionSubmenu == "2":   # Opción 2 del submenú
+                    ...
+                
+                elif opcionSubmenu == "3":   # Opción 3 del submenú
+                    ...
+                
+                elif opcionSubmenu == "4":   # Opción 4 del submenú
+                    ...
+
+                input("\nPresione ENTER para volver al menú.") # Pausa entre opciones
+                print("\n\n")
+
         
         elif opcionMenuPrincipal == "4":   # Opción 4 del menú principal
-            ...
+            while True:
+                while True:
+                    opciones = 4
+                    print()
+                    print("---------------------------")
+                    print("INFORMES")
+                    print("---------------------------")
+                    print("[1] Eventos del mes")
+                    print("[2] Resumen Anual de eventos por  Banda (Cantidades)")
+                    print("[3] Resumen Anual de eventos  por Banda (Pesos)")
+                    print("[4] Resumen de bandas más solicitadas")
+                    print("---------------------------")
+                    print("[0] Volver al menú anterior")
+                    print("---------------------------")
+                    print()
+                    
+                    opcionSubmenu = input("Seleccione una opción: ")
+                    if opcionSubmenu in [str(i) for i in range(0, opciones + 1)]: # Sólo continua si se elije una opcion de menú válida
+                        break
+                    else:
+                        input("Opción inválida. Presione ENTER para volver a seleccionar.")
+                print()
+
+                if opcionSubmenu == "0": # Opción salir del submenú
+                    break # No sale del programa, sino que vuelve al menú anterior
+                
+                elif opcionSubmenu == "1":   # Opción 1 del submenú
+                    clientes = altaCliente(clientes)
+                    
+                elif opcionSubmenu == "2":   # Opción 2 del submenú
+                    ...
+                
+                elif opcionSubmenu == "3":   # Opción 3 del submenú
+                    ...
+                
+                elif opcionSubmenu == "4":   # Opción 4 del submenú
+                    ...
+
+                input("\nPresione ENTER para volver al menú.") # Pausa entre opciones
+                print("\n\n")            
 
         elif opcionMenuPrincipal == "5":   # Opción 5 del menú principal
-            ...
+            ... #EN TEORIA NO LO USAMOS
 
         if opcionSubmenu != "0": # Pausa entre opciones. No la realiza si se vuelve de un submenú
             input("\nPresione ENTER para volver al menú.")
