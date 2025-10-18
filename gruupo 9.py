@@ -1,7 +1,7 @@
 """
 -----------------------------------------------------------------------------------------------
 Título: Proyecto Empresa de Entretenimientos
-Fecha: Octubre 2025
+Fecha: 24 de Octubre 2025
 Autores: Mayra Gutierrez | Bianca Chancalay | Guido Hirschfeldt | Daniel Palomino | Uriel Velardez
 
 Descripción:
@@ -11,96 +11,65 @@ calculando los costos del servicio. El sistema es utilizado por un único admini
 -----------------------------------------------------------------------------------------------
 """
 
-#----------------------------------------------------------------------------------------------
-# MÓDULOS
-#----------------------------------------------------------------------------------------------
 from datetime import datetime
 
 #----------------------------------------------------------------------------------------------
 # DATOS INICIALES
 #----------------------------------------------------------------------------------------------
 salones = {
-    "S001": {
-        "nombre": "Salón Dorado",
-        "capacidad": 150,
-        "ubicacion": "Recoleta",
-        "alquiler": 250000,
-        "servicios": {"serv1": "Catering", "serv2": "DJ", "serv3": "Decoración"},
-        "activo": True
-    },
-    "S002": {
-        "nombre": "Sky Lounge",
-        "capacidad": 200,
-        "ubicacion": "Palermo",
-        "alquiler": 300000,
-        "servicios": {"serv1": "Luces", "serv2": "Pantalla LED", "serv3": "Bar libre"},
-        "activo": True
-    },
-    "S003": {
-        "nombre": "Espacio Lux",
-        "capacidad": 120,
-        "ubicacion": "San Telmo",
-        "alquiler": 180000,
-        "servicios": {"serv1": "Catering Premium", "serv2": "Iluminación", "serv3": "Escenario"},
-        "activo": True
-    },
-    "S004": {
-        "nombre": "Eventos Plaza",
-        "capacidad": 250,
-        "ubicacion": "Belgrano",
-        "alquiler": 320000,
-        "servicios": {"serv1": "Barra", "serv2": "Fotocabina", "serv3": "Pantalla gigante"},
-        "activo": True
-    },
-    "S005": {
-        "nombre": "Terraza Río",
-        "capacidad": 180,
-        "ubicacion": "Puerto Madero",
-        "alquiler": 280000,
-        "servicios": {"serv1": "Vista al río", "serv2": "DJ residente", "serv3": "Catering marino"},
-        "activo": True
-    }
+    "S001": {"nombre": "Salón Dorado", "capacidad": 150, "ubicacion": "Recoleta",
+             "alquiler": 250000,
+             "servicios": {"serv1": "Catering", "serv2": "DJ", "serv3": "Decoración"},
+             "activo": True},
+    "S002": {"nombre": "Sky Lounge", "capacidad": 200, "ubicacion": "Palermo",
+             "alquiler": 300000,
+             "servicios": {"serv1": "Luces", "serv2": "Pantalla LED", "serv3": "Bar libre"},
+             "activo": True},
+    "S003": {"nombre": "Espacio Lux", "capacidad": 120, "ubicacion": "San Telmo",
+             "alquiler": 180000,
+             "servicios": {"serv1": "Catering Premium", "serv2": "Iluminación", "serv3": "Escenario"},
+             "activo": True},
+    "S004": {"nombre": "Eventos Plaza", "capacidad": 250, "ubicacion": "Belgrano",
+             "alquiler": 320000,
+             "servicios": {"serv1": "Barra", "serv2": "Fotocabina", "serv3": "Pantalla gigante"},
+             "activo": True},
+    "S005": {"nombre": "Terraza Río", "capacidad": 180, "ubicacion": "Puerto Madero",
+             "alquiler": 280000,
+             "servicios": {"serv1": "Vista al río", "serv2": "DJ residente", "serv3": "Catering marino"},
+             "activo": True}
 }
 
 bandas = {
-    "B001": {
-        "nombre": "RockMasters",
-        "genero": "Rock",
-        "costo_media_hora": 80000,
-        "integrantes": {"int1": "Cantante", "int2": "Guitarrista", "int3": "Bajista", "int4": "Baterista"},
-        "activo": True
-    },
-    "B002": {
-        "nombre": "JazzVibes",
-        "genero": "Jazz",
-        "costo_media_hora": 70000,
-        "integrantes": {"int1": "Saxofonista", "int2": "Pianista", "int3": "Contrabajista", "int4": "Baterista"},
-        "activo": True
-    },
-    "B003": {
-        "nombre": "PopZone",
-        "genero": "Pop",
-        "costo_media_hora": 60000,
-        "integrantes": {"int1": "Vocalista", "int2": "Tecladista", "int3": "Bajista", "int4": "Baterista"},
-        "activo": True
-    },
-    "B004": {
-        "nombre": "ElectroBeat",
-        "genero": "Electrónica",
-        "costo_media_hora": 90000,
-        "integrantes": {"int1": "DJ", "int2": "Percusionista", "int3": "Técnico de sonido"},
-        "activo": True
-    },
-    "B005": {
-        "nombre": "SalsaMix",
-        "genero": "Salsa",
-        "costo_media_hora": 75000,
-        "integrantes": {"int1": "Cantante", "int2": "Pianista", "int3": "Percusionista", "int4": "Bajista"},
-        "activo": True
-    }
+    "B001": {"nombre": "RockMasters", "genero": "Rock", "costo_media_hora": 80000,
+             "integrantes": {"int1": "Cantante", "int2": "Guitarrista", "int3": "Bajista", "int4": "Baterista"},
+             "activo": True},
+    "B002": {"nombre": "JazzVibes", "genero": "Jazz", "costo_media_hora": 70000,
+             "integrantes": {"int1": "Saxofonista", "int2": "Pianista", "int3": "Contrabajista", "int4": "Baterista"},
+             "activo": True},
+    "B003": {"nombre": "PopZone", "genero": "Pop", "costo_media_hora": 60000,
+             "integrantes": {"int1": "Vocalista", "int2": "Tecladista", "int3": "Bajista", "int4": "Baterista"},
+             "activo": True},
+    "B004": {"nombre": "ElectroBeat", "genero": "Electrónica", "costo_media_hora": 90000,
+             "integrantes": {"int1": "DJ", "int2": "Percusionista", "int3": "Técnico de sonido"},
+             "activo": True},
+    "B005": {"nombre": "SalsaMix", "genero": "Salsa", "costo_media_hora": 75000,
+             "integrantes": {"int1": "Cantante", "int2": "Pianista", "int3": "Percusionista", "int4": "Bajista"},
+             "activo": True}
 }
 
 eventos = {}
+
+#----------------------------------------------------------------------------------------------
+# FUNCIONES AUXILIARES
+#----------------------------------------------------------------------------------------------
+def esperar_continuar():
+    """Pausa con opción de continuar o volver al menú principal"""
+    print("\nPresione ENTER para continuar en este menú")
+    print("O presione T para volver al menú principal")
+    opcion = input("Opción: ").strip().upper()
+    if opcion == "T":
+        return False  # volver al menú principal
+    return True  # continuar en el submenú
 
 #----------------------------------------------------------------------------------------------
 # FUNCIONES CRUD SALONES
@@ -108,14 +77,22 @@ eventos = {}
 def altaSalon(salones):
     codigo = input("Código del salón (S###): ").upper()
     if codigo in salones:
-        print(" Ya existe un salón con ese código.")
+        print("⚠️ Ya existe un salón con ese código.")
         return salones
 
     nombre = input("Nombre del salón: ")
     capacidad = int(input("Capacidad máxima: "))
     ubicacion = input("Ubicación: ")
     alquiler = float(input("Costo de alquiler: "))
-    servicios = {f"serv{i}": input(f"Servicio {i}: ") for i in range(1, 4)}
+
+    servicios = {}
+    i = 1
+    while True:
+        serv = input(f"Ingrese servicio {i} (ENTER para terminar): ").strip()
+        if not serv:
+            break
+        servicios[f"serv{i}"] = serv
+        i += 1
 
     salones[codigo] = {
         "nombre": nombre,
@@ -126,14 +103,13 @@ def altaSalon(salones):
         "activo": True
     }
 
-    print(f"✅ Salón {nombre} agregado.")
+    print(f"✅ Salón {nombre} agregado con {len(servicios)} servicios.")
     return salones
-
 
 def modificarSalon(salones):
     codigo = input("Código del salón a modificar: ").upper()
     if codigo not in salones or not salones[codigo]["activo"]:
-        print(" No encontrado o inactivo.")
+        print("⚠️ No encontrado o inactivo.")
         return salones
 
     salon = salones[codigo]
@@ -145,24 +121,22 @@ def modificarSalon(salones):
     print("✅ Salón modificado.")
     return salones
 
-
 def bajaSalon(salones):
     codigo = input("Código del salón: ").upper()
     if codigo in salones and salones[codigo]["activo"]:
         salones[codigo]["activo"] = False
         print("✅ Salón desactivado.")
     else:
-        print("No existe o ya estaba inactivo.")
+        print("⚠️ No existe o ya estaba inactivo.")
     return salones
-
 
 def listarSalones(salones):
     print("\n--- SALONES ACTIVOS ---")
     for c, d in salones.items():
         if d["activo"]:
             print(f"{c} - {d['nombre']} ({d['ubicacion']}) Cap: {d['capacidad']} | ${d['alquiler']}")
+            print(f"  Servicios: {', '.join(d['servicios'].values())}")
     print("------------------------")
-
 
 #----------------------------------------------------------------------------------------------
 # FUNCIONES CRUD BANDAS
@@ -170,13 +144,21 @@ def listarSalones(salones):
 def altaBanda(bandas):
     codigo = input("Código (B###): ").upper()
     if codigo in bandas:
-        print(" Ya existe esa banda.")
+        print("⚠️ Ya existe esa banda.")
         return bandas
 
     nombre = input("Nombre: ")
     genero = input("Género: ")
     costo = float(input("Costo por media hora: "))
-    integrantes = {f"int{i}": input(f"Rol {i}: ") for i in range(1, 4)}
+
+    integrantes = {}
+    i = 1
+    while True:
+        rol = input(f"Ingrese rol del integrante {i} (ENTER para terminar): ").strip()
+        if not rol:
+            break
+        integrantes[f"int{i}"] = rol
+        i += 1
 
     bandas[codigo] = {
         "nombre": nombre,
@@ -186,14 +168,13 @@ def altaBanda(bandas):
         "activo": True
     }
 
-    print(f"✅ Banda {nombre} agregada.")
+    print(f"✅ Banda {nombre} agregada con {len(integrantes)} integrantes.")
     return bandas
-
 
 def modificarBanda(bandas):
     codigo = input("Código de banda: ").upper()
     if codigo not in bandas or not bandas[codigo]["activo"]:
-        print(" Banda no encontrada o inactiva.")
+        print("⚠️ Banda no encontrada o inactiva.")
         return bandas
 
     banda = bandas[codigo]
@@ -204,38 +185,37 @@ def modificarBanda(bandas):
     print("✅ Banda modificada.")
     return bandas
 
-
 def bajaBanda(bandas):
     codigo = input("Código de banda: ").upper()
     if codigo in bandas and bandas[codigo]["activo"]:
         bandas[codigo]["activo"] = False
         print("✅ Banda desactivada.")
     else:
-        print(" No existe o ya estaba inactiva.")
+        print("⚠️ No existe o ya estaba inactiva.")
     return bandas
-
 
 def listarBandas(bandas):
     print("\n--- BANDAS ACTIVAS ---")
     for c, d in bandas.items():
         if d["activo"]:
             print(f"{c} - {d['nombre']} ({d['genero']}) | ${d['costo_media_hora']}")
+            print(f"  Integrantes: {', '.join(d['integrantes'].values())}")
     print("----------------------")
-
 
 #----------------------------------------------------------------------------------------------
 # FUNCIONES EVENTOS
 #----------------------------------------------------------------------------------------------
 def registrarEvento(eventos, salones, bandas):
     codigo_evento = f"E{len(eventos)+1:03}"
+    
     codigo_salon = input("Código del salón: ").upper()
     if codigo_salon not in salones or not salones[codigo_salon]["activo"]:
-        print(" Salón no válido.")
+        print("⚠️ Salón no válido.")
         return eventos
 
     codigo_banda = input("Código de la banda: ").upper()
     if codigo_banda not in bandas or not bandas[codigo_banda]["activo"]:
-        print(" Banda no válida.")
+        print("⚠️ Banda no válida.")
         return eventos
 
     duracion = float(input("Duración (hs): "))
@@ -253,7 +233,6 @@ def registrarEvento(eventos, salones, bandas):
     print(f"✅ Evento {codigo_evento} registrado. Costo total ${costo:,.2f}")
     return eventos
 
-
 #----------------------------------------------------------------------------------------------
 # INFORMES
 #----------------------------------------------------------------------------------------------
@@ -266,9 +245,8 @@ def informe_eventos_mes(eventos, bandas):
             print(f"{ev['fecha_hora']} | {banda} | {ev['duracion_horas']} hs | ${ev['costo_total']}")
     print("----------------------")
 
-
 def resumen_cantidades(eventos, bandas):
-    print("\nRESUMEN ANUAL (CANTIDADES)")
+    print("\n RESUMEN ANUAL (CANTIDADES)")
     conteo = {b: [0]*12 for b in bandas}
     for ev in eventos.values():
         mes = int(ev["fecha_hora"].split(".")[1])
@@ -276,7 +254,6 @@ def resumen_cantidades(eventos, bandas):
         conteo[banda][mes-1] += 1
     for b, meses in conteo.items():
         print(f"{bandas[b]['nombre']}: {meses}")
-
 
 def resumen_pesos(eventos, bandas):
     print("\n RESUMEN ANUAL (PESOS)")
@@ -288,7 +265,6 @@ def resumen_pesos(eventos, bandas):
     for b, meses in totales.items():
         print(f"{bandas[b]['nombre']}: {meses}")
 
-
 def bandas_mas_solicitadas(eventos, bandas):
     print("\n BANDAS MÁS SOLICITADAS")
     ranking = {}
@@ -298,7 +274,6 @@ def bandas_mas_solicitadas(eventos, bandas):
     orden = sorted(ranking.items(), key=lambda x: x[1], reverse=True)
     for b, c in orden:
         print(f"{bandas[b]['nombre']} → {c} eventos")
-
 
 #----------------------------------------------------------------------------------------------
 # CUERPO PRINCIPAL
@@ -324,7 +299,9 @@ def main():
                 elif op == "3": salones = bajaSalon(salones)
                 elif op == "4": listarSalones(salones)
                 elif op == "0": break
-                input("\nENTER para continuar...")
+
+                if not esperar_continuar():
+                    break
 
         elif opcion == "2":
             while True:
@@ -336,7 +313,9 @@ def main():
                 elif op == "3": bandas = bajaBanda(bandas)
                 elif op == "4": listarBandas(bandas)
                 elif op == "0": break
-                input("\nENTER para continuar...")
+
+                if not esperar_continuar():
+                    break
 
         elif opcion == "3":
             while True:
@@ -345,7 +324,9 @@ def main():
                 op = input("Opción: ")
                 if op == "1": eventos = registrarEvento(eventos, salones, bandas)
                 elif op == "0": break
-                input("\nENTER para continuar...")
+
+                if not esperar_continuar():
+                    break
 
         elif opcion == "4":
             while True:
@@ -361,16 +342,18 @@ def main():
                 elif op == "3": resumen_pesos(eventos, bandas)
                 elif op == "4": bandas_mas_solicitadas(eventos, bandas)
                 elif op == "0": break
-                input("\nENTER para continuar...")
+
+                if not esperar_continuar():
+                    break
 
         elif opcion == "0":
-            print("👋 Fin del programa.")
+            print("Fin del programa.")
             break
         else:
-            print(" Opción inválida.")
-
+            print("⚠️ Opción inválida.")
 
 #----------------------------------------------------------------------------------------------
 # PUNTO DE ENTRADA
 #----------------------------------------------------------------------------------------------
-main()
+if __name__ == "__main__":
+    main()
