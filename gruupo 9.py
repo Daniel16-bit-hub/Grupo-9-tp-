@@ -236,44 +236,74 @@ def registrarEvento(eventos, salones, bandas):
 #----------------------------------------------------------------------------------------------
 # INFORMES
 #----------------------------------------------------------------------------------------------
-def informe_eventos_mes(eventos, bandas):
-    print("\n EVENTOS DEL MES")
+def informe_eventos_mes(eventos, bandas, salones):
+    print("\n--- EVENTOS DEL MES ---")
     mes_actual = datetime.now().strftime("%Y.%m")
+    print(f"{'Fecha/Hora':20} {'Salón':20} {'Banda':20} {'Duración':10} {'Costo':10}")
+    print("-"*85)
+    
     for cod, ev in eventos.items():
         if ev["fecha_hora"].startswith(mes_actual):
-            banda = bandas[ev["codigo_banda"]]["nombre"]
-            print(f"{ev['fecha_hora']} | {banda} | {ev['duracion_horas']} hs | ${ev['costo_total']}")
-    print("----------------------")
+            nombre_salon = salones[ev["codigo_salon"]]["nombre"]
+            nombre_banda = bandas[ev["codigo_banda"]]["nombre"]
+            duracion = ev["duracion_horas"]
+            costo = ev["costo_total"]
+            print(f"{ev['fecha_hora']:20} {nombre_salon:20} {nombre_banda:20} {duracion:<10} ${costo:<10,.2f}")
+    print("-"*85)
+
 
 def resumen_cantidades(eventos, bandas):
-    print("\n RESUMEN ANUAL (CANTIDADES)")
-    conteo = {b: [0]*12 for b in bandas}
+    matriz = {b: [0]*12 for b in bandas if bandas[b]["activo"]}
+    
     for ev in eventos.values():
-        mes = int(ev["fecha_hora"].split(".")[1])
+        mes = int(ev["fecha_hora"].split(".")[1]) - 1
         banda = ev["codigo_banda"]
-        conteo[banda][mes-1] += 1
-    for b, meses in conteo.items():
-        print(f"{bandas[b]['nombre']}: {meses}")
+        matriz[banda][mes] += 1
+    
+    meses = ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"]
+    print("\n CANTIDAD TOTAL DE EVENTOS POR MES Y BANDA")
+    print(f"{'Banda':20} " + " ".join([f"{m:>6}" for m in meses]))
+    print("-"*95)
+    
+    for b, valores in matriz.items():
+        print(f"{bandas[b]['nombre']:20} " + " ".join([f"{v:6}" for v in valores]))
+    print("-"*95)
+
 
 def resumen_pesos(eventos, bandas):
-    print("\n RESUMEN ANUAL (PESOS)")
-    totales = {b: [0]*12 for b in bandas}
+    matriz = {b: [0]*12 for b in bandas if bandas[b]["activo"]}
+    
     for ev in eventos.values():
-        mes = int(ev["fecha_hora"].split(".")[1])
+        mes = int(ev["fecha_hora"].split(".")[1]) - 1
         banda = ev["codigo_banda"]
-        totales[banda][mes-1] += ev["costo_total"]
-    for b, meses in totales.items():
-        print(f"{bandas[b]['nombre']}: {meses}")
+        matriz[banda][mes] += ev["costo_total"]
+    
+    meses = ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"]
+    print("\n MONTO TOTAL DE EVENTOS POR MES Y BANDA")
+    print(f"{'Banda':20} " + " ".join([f"{m:>10}" for m in meses]))
+    print("-"*125)
+    
+    for b, valores in matriz.items():
+        print(f"{bandas[b]['nombre']:20} " + " ".join([f"${v:>9,.0f}" for v in valores]))
+    print("-"*125)
+
 
 def bandas_mas_solicitadas(eventos, bandas):
-    print("\n BANDAS MÁS SOLICITADAS")
     ranking = {}
+    costos = {}
     for ev in eventos.values():
         b = ev["codigo_banda"]
         ranking[b] = ranking.get(b, 0) + 1
+        costos[b] = costos.get(b, 0) + ev["costo_total"]
+    
     orden = sorted(ranking.items(), key=lambda x: x[1], reverse=True)
-    for b, c in orden:
-        print(f"{bandas[b]['nombre']} → {c} eventos")
+    
+    print("\n🏆 RANKING DE BANDAS MÁS SOLICITADAS")
+    print(f"{'Banda':25} {'Cantidad de eventos':20} {'Costo total generado':20}")
+    print("-"*85)
+    for b, cant in orden:
+        print(f"{bandas[b]['nombre']:25} {cant:<20} ${costos[b]:<20,.2f}")
+    print("-"*85)
 
 #----------------------------------------------------------------------------------------------
 # CUERPO PRINCIPAL
@@ -296,12 +326,10 @@ def main():
                 op = input("Opción: ")
                 if op == "1": salones = altaSalon(salones)
                 elif op == "2": salones = modificarSalon(salones)
-                elif op == "3": salones = bajaSalon(salones)
+                elif op == "3": bajaSalon(salones)
                 elif op == "4": listarSalones(salones)
                 elif op == "0": break
-
-                if not esperar_continuar():
-                    break
+                if not esperar_continuar(): break
 
         elif opcion == "2":
             while True:
@@ -310,12 +338,10 @@ def main():
                 op = input("Opción: ")
                 if op == "1": bandas = altaBanda(bandas)
                 elif op == "2": bandas = modificarBanda(bandas)
-                elif op == "3": bandas = bajaBanda(bandas)
+                elif op == "3": bajaBanda(bandas)
                 elif op == "4": listarBandas(bandas)
                 elif op == "0": break
-
-                if not esperar_continuar():
-                    break
+                if not esperar_continuar(): break
 
         elif opcion == "3":
             while True:
@@ -324,9 +350,7 @@ def main():
                 op = input("Opción: ")
                 if op == "1": eventos = registrarEvento(eventos, salones, bandas)
                 elif op == "0": break
-
-                if not esperar_continuar():
-                    break
+                if not esperar_continuar(): break
 
         elif opcion == "4":
             while True:
@@ -337,14 +361,12 @@ def main():
                 print("[4] Bandas más solicitadas")
                 print("[0] Volver")
                 op = input("Opción: ")
-                if op == "1": informe_eventos_mes(eventos, bandas)
+                if op == "1": informe_eventos_mes(eventos, bandas, salones)
                 elif op == "2": resumen_cantidades(eventos, bandas)
                 elif op == "3": resumen_pesos(eventos, bandas)
                 elif op == "4": bandas_mas_solicitadas(eventos, bandas)
                 elif op == "0": break
-
-                if not esperar_continuar():
-                    break
+                if not esperar_continuar(): break
 
         elif opcion == "0":
             print("Fin del programa.")
