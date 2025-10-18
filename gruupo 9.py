@@ -21,7 +21,7 @@ salones = {
              "alquiler": 250000,
              "servicios": {"serv1": "Catering", "serv2": "DJ", "serv3": "Decoración"},
              "activo": True},
-    "S002": {"nombre": "Sky Lounge", "capacidad": 200, "ubicacion": "Palermo",
+    "S002": {"nombre": "Sky Lounge", "capacidad": 200, "ubicacion": "Palermoc Soho",
              "alquiler": 300000,
              "servicios": {"serv1": "Luces", "serv2": "Pantalla LED", "serv3": "Bar libre"},
              "activo": True},
@@ -40,7 +40,7 @@ salones = {
 }
 
 bandas = {
-    "B001": {"nombre": "RockMasters", "genero": "Rock", "costo_media_hora": 80000,
+    "B001": {"nombre": "Rockstars", "genero": "Rock", "costo_media_hora": 80000,
              "integrantes": {"int1": "Cantante", "int2": "Guitarrista", "int3": "Bajista", "int4": "Baterista"},
              "activo": True},
     "B002": {"nombre": "JazzVibes", "genero": "Jazz", "costo_media_hora": 70000,
@@ -49,7 +49,7 @@ bandas = {
     "B003": {"nombre": "PopZone", "genero": "Pop", "costo_media_hora": 60000,
              "integrantes": {"int1": "Vocalista", "int2": "Tecladista", "int3": "Bajista", "int4": "Baterista"},
              "activo": True},
-    "B004": {"nombre": "ElectroBeat", "genero": "Electrónica", "costo_media_hora": 90000,
+    "B004": {"nombre": "Electronics Beats", "genero": "Electrónica", "costo_media_hora": 90000,
              "integrantes": {"int1": "DJ", "int2": "Percusionista", "int3": "Técnico de sonido"},
              "activo": True},
     "B005": {"nombre": "SalsaMix", "genero": "Salsa", "costo_media_hora": 75000,
