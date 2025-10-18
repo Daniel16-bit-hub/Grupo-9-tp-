@@ -77,7 +77,7 @@ def esperar_continuar():
 def altaSalon(salones):
     codigo = input("Código del salón (S###): ").upper()
     if codigo in salones:
-        print("⚠️ Ya existe un salón con ese código.")
+        print("Ya existe un salón con ese código.")
         return salones
 
     nombre = input("Nombre del salón: ")
@@ -103,13 +103,13 @@ def altaSalon(salones):
         "activo": True
     }
 
-    print(f"✅ Salón {nombre} agregado con {len(servicios)} servicios.")
+    print(f"Salón {nombre} agregado con {len(servicios)} servicios.")
     return salones
 
 def modificarSalon(salones):
     codigo = input("Código del salón a modificar: ").upper()
     if codigo not in salones or not salones[codigo]["activo"]:
-        print("⚠️ No encontrado o inactivo.")
+        print("No encontrado o inactivo.")
         return salones
 
     salon = salones[codigo]
@@ -118,16 +118,16 @@ def modificarSalon(salones):
     salon["ubicacion"] = input(f"Ubicación [{salon['ubicacion']}]: ") or salon["ubicacion"]
     salon["alquiler"] = float(input(f"Alquiler [{salon['alquiler']}]: ") or salon["alquiler"])
 
-    print("✅ Salón modificado.")
+    print("Salón modificado.")
     return salones
 
 def bajaSalon(salones):
     codigo = input("Código del salón: ").upper()
     if codigo in salones and salones[codigo]["activo"]:
         salones[codigo]["activo"] = False
-        print("✅ Salón desactivado.")
+        print("Salón desactivado.")
     else:
-        print("⚠️ No existe o ya estaba inactivo.")
+        print("No existe o ya estaba inactivo.")
     return salones
 
 def listarSalones(salones):
@@ -144,7 +144,7 @@ def listarSalones(salones):
 def altaBanda(bandas):
     codigo = input("Código (B###): ").upper()
     if codigo in bandas:
-        print("⚠️ Ya existe esa banda.")
+        print("Ya existe esa banda.")
         return bandas
 
     nombre = input("Nombre: ")
@@ -168,13 +168,13 @@ def altaBanda(bandas):
         "activo": True
     }
 
-    print(f"✅ Banda {nombre} agregada con {len(integrantes)} integrantes.")
+    print(f"Banda {nombre} agregada con {len(integrantes)} integrantes.")
     return bandas
 
 def modificarBanda(bandas):
     codigo = input("Código de banda: ").upper()
     if codigo not in bandas or not bandas[codigo]["activo"]:
-        print("⚠️ Banda no encontrada o inactiva.")
+        print("Banda no encontrada o inactiva.")
         return bandas
 
     banda = bandas[codigo]
@@ -182,7 +182,7 @@ def modificarBanda(bandas):
     banda["genero"] = input(f"Género [{banda['genero']}]: ") or banda["genero"]
     banda["costo_media_hora"] = float(input(f"Costo [{banda['costo_media_hora']}]: ") or banda["costo_media_hora"])
 
-    print("✅ Banda modificada.")
+    print("Banda modificada.")
     return bandas
 
 def bajaBanda(bandas):
@@ -191,7 +191,7 @@ def bajaBanda(bandas):
         bandas[codigo]["activo"] = False
         print("✅ Banda desactivada.")
     else:
-        print("⚠️ No existe o ya estaba inactiva.")
+        print("No existe o ya estaba inactiva.")
     return bandas
 
 def listarBandas(bandas):
@@ -210,12 +210,12 @@ def registrarEvento(eventos, salones, bandas):
     
     codigo_salon = input("Código del salón: ").upper()
     if codigo_salon not in salones or not salones[codigo_salon]["activo"]:
-        print("⚠️ Salón no válido.")
+        print("Salón no válido.")
         return eventos
 
     codigo_banda = input("Código de la banda: ").upper()
     if codigo_banda not in bandas or not bandas[codigo_banda]["activo"]:
-        print("⚠️ Banda no válida.")
+        print("Banda no válida.")
         return eventos
 
     duracion = float(input("Duración (hs): "))
@@ -230,7 +230,7 @@ def registrarEvento(eventos, salones, bandas):
         "costo_total": costo
     }
 
-    print(f"✅ Evento {codigo_evento} registrado. Costo total ${costo:,.2f}")
+    print(f"Evento {codigo_evento} registrado. Costo total ${costo:,.2f}")
     return eventos
 
 #----------------------------------------------------------------------------------------------
@@ -372,7 +372,7 @@ def main():
             print("Fin del programa.")
             break
         else:
-            print("⚠️ Opción inválida.")
+            print("Opción inválida.")
 
 #----------------------------------------------------------------------------------------------
 # PUNTO DE ENTRADA
