@@ -370,7 +370,7 @@ def main():
                 if not esperar_continuar(): break
 
         elif opcion == "0":
-            print("Fin del programa.")
+            print("Fin del programa")
             break
         else:
             print("Opción inválida.")
