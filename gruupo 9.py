@@ -220,6 +220,7 @@ def registrarEvento(eventos, salones, bandas):
 
     duracion = float(input("Duración (hs): "))
     costo = bandas[codigo_banda]["costo_media_hora"] * (duracion * 2)
+    #REVISAR ESTO DE ABAJO
     fecha = datetime.now().strftime("%Y.%m.%d %H:%M:%S")
 
     eventos[codigo_evento] = {
