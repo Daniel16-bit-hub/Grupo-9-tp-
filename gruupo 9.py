@@ -297,7 +297,7 @@ def bandas_mas_solicitadas(eventos, bandas):
         ranking[b] = ranking.get(b, 0) + 1
         costos[b] = costos.get(b, 0) + ev["costo_total"]
     
-    orden = sorted(ranking.items(), key=lambda x: x[1], reverse=True)
+    orden = sorted(ranking.items(), reverse=True)
     
     print("\nRANKING DE BANDAS MÁS SOLICITADAS")
     print(f"{'Banda':25} {'Cantidad de eventos':20} {'Costo total generado':20}")
