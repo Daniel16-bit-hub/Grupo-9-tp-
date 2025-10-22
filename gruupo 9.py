@@ -40,19 +40,19 @@ salones = {
 }
 
 bandas = {
-    "B001": {"nombre": "Rockstars", "genero": "Rock", "costo_media_hora": 80000,
+    "B001": {"nombre": "Mordecai y los Rigbys", "genero": "Rock", "costo_media_hora": 80000,
              "integrantes": {"int1": "Cantante", "int2": "Guitarrista", "int3": "Bajista", "int4": "Baterista"},
              "activo": True},
     "B002": {"nombre": "JazzVibes", "genero": "Jazz", "costo_media_hora": 70000,
              "integrantes": {"int1": "Saxofonista", "int2": "Pianista", "int3": "Contrabajista", "int4": "Baterista"},
              "activo": True},
-    "B003": {"nombre": "PopZone", "genero": "Pop", "costo_media_hora": 60000,
+    "B003": {"nombre": "PopZzzone", "genero": "Pop", "costo_media_hora": 60000,
              "integrantes": {"int1": "Vocalista", "int2": "Tecladista", "int3": "Bajista", "int4": "Baterista"},
              "activo": True},
-    "B004": {"nombre": "Electronics Beats", "genero": "Electrónica", "costo_media_hora": 90000,
+    "B004": {"nombre": "Electronics Bit", "genero": "Electrónica", "costo_media_hora": 90000,
              "integrantes": {"int1": "DJ", "int2": "Percusionista", "int3": "Técnico de sonido"},
              "activo": True},
-    "B005": {"nombre": "SalsaMix", "genero": "Salsa", "costo_media_hora": 75000,
+    "B005": {"nombre": "Salsa Mamma mia", "genero": "Salsa", "costo_media_hora": 75000,
              "integrantes": {"int1": "Cantante", "int2": "Pianista", "int3": "Percusionista", "int4": "Bajista"},
              "activo": True}
 }
