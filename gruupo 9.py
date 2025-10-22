@@ -189,7 +189,7 @@ def bajaBanda(bandas):
     codigo = input("Código de banda: ").upper()
     if codigo in bandas and bandas[codigo]["activo"]:
         bandas[codigo]["activo"] = False
-        print("✅ Banda desactivada.")
+        print("Banda desactivada.")
     else:
         print("No existe o ya estaba inactiva.")
     return bandas
@@ -298,7 +298,7 @@ def bandas_mas_solicitadas(eventos, bandas):
     
     orden = sorted(ranking.items(), key=lambda x: x[1], reverse=True)
     
-    print("\n🏆 RANKING DE BANDAS MÁS SOLICITADAS")
+    print("\nRANKING DE BANDAS MÁS SOLICITADAS")
     print(f"{'Banda':25} {'Cantidad de eventos':20} {'Costo total generado':20}")
     print("-"*85)
     for b, cant in orden:
