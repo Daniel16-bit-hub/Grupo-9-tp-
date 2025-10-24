@@ -17,25 +17,45 @@ from datetime import datetime
 # DATOS INICIALES
 #----------------------------------------------------------------------------------------------
 salones = {
-    "S001": {"nombre": "Salón Dorado", "capacidad": 150, "ubicacion": "Recoleta",
+    "S001": {"nombre": "Salón Dorado",
+             "capacidad": 150,
+             "ubicacion": "Recoleta",
              "alquiler": 250000,
-             "servicios": {"serv1": "Catering", "serv2": "DJ", "serv3": "Decoración"},
+             "servicios": {"serv1": "Catering",
+                         "serv2": "DJ",
+                         "serv3": "Decoración"},
              "activo": True},
-    "S002": {"nombre": "Sky Lounge", "capacidad": 200, "ubicacion": "Palermoc Soho",
+    "S002": {"nombre": "Sky Lounge",
+             "capacidad": 200,
+             "ubicacion": "Palermoc Soho",
              "alquiler": 300000,
-             "servicios": {"serv1": "Luces", "serv2": "Pantalla LED", "serv3": "Bar libre"},
+             "servicios": {"serv1": "Luces",
+                         "serv2": "Pantalla LED",
+                         "serv3": "Bar libre"},
              "activo": True},
-    "S003": {"nombre": "Espacio Lux", "capacidad": 120, "ubicacion": "San Telmo",
+    "S003": {"nombre": "Espacio Lux",
+             "capacidad": 120,
+             "ubicacion": "San Telmo",
              "alquiler": 180000,
-             "servicios": {"serv1": "Catering Premium", "serv2": "Iluminación", "serv3": "Escenario"},
+             "servicios": {"serv1": "Catering Premium",
+                         "serv2": "Iluminación",
+                         "serv3": "Escenario"},
              "activo": True},
-    "S004": {"nombre": "Eventos Plaza", "capacidad": 250, "ubicacion": "Belgrano",
+    "S004": {"nombre": "Eventos Plaza",
+             "capacidad": 250,
+             "ubicacion": "Belgrano",
              "alquiler": 320000,
-             "servicios": {"serv1": "Barra", "serv2": "Fotocabina", "serv3": "Pantalla gigante"},
+             "servicios": {"serv1": "Barra",
+                         "serv2": "Fotocabina",
+                         "serv3": "Pantalla gigante"},
              "activo": True},
-    "S005": {"nombre": "Terraza Río", "capacidad": 180, "ubicacion": "Puerto Madero",
+    "S005": {"nombre": "Terraza Río",
+             "capacidad": 180,
+             "ubicacion": "Puerto Madero",
              "alquiler": 280000,
-             "servicios": {"serv1": "Vista al río", "serv2": "DJ residente", "serv3": "Catering marino"},
+             "servicios": {"serv1": "Vista al río",
+                         "serv2": "DJ residente",
+                         "serv3": "Catering marino"},
              "activo": True}
 }
 
@@ -339,23 +359,34 @@ def main(salones, bandas, eventos):
                 print("\n--- GESTIÓN DE SALONES ---")
                 print("[1] Alta  [2] Modificar  [3] Baja  [4] Listar  [0] Volver")
                 op = input("Opción: ")
-                if op == "1": salones = altaSalon(salones)
-                elif op == "2": salones = modificarSalon(salones)
-                elif op == "3": bajaSalon(salones)
-                elif op == "4": listarSalones(salones)
-                elif op == "0": break
-                if not esperar_continuar(): break
+                if op == "1":
+                    salones = altaSalon(salones)
+                elif op == "2":
+                    salones = modificarSalon(salones)
+                elif op == "3":
+                    bajaSalon(salones)
+                elif op == "4":
+                    listarSalones(salones)
+                elif op == "0":
+                    break
+                if not esperar_continuar():
+                    break
 
         elif opcion == "2":
             while True:
                 print("\n--- GESTIÓN DE BANDAS ---")
                 print("[1] Alta  [2] Modificar  [3] Baja  [4] Listar  [0] Volver")
                 op = input("Opción: ")
-                if op == "1": bandas = altaBanda(bandas)
-                elif op == "2": bandas = modificarBanda(bandas)
-                elif op == "3": bajaBanda(bandas)
-                elif op == "4": listarBandas(bandas)
-                elif op == "0": break
+                if op == "1":
+                    bandas = altaBanda(bandas)
+                elif op == "2":
+                    bandas = modificarBanda(bandas)
+                elif op == "3":
+                    bajaBanda(bandas)
+                elif op == "4":
+                    listarBandas(bandas)
+                elif op == "0":
+                    break
                 if not esperar_continuar(): break
 
         elif opcion == "3":
@@ -376,12 +407,18 @@ def main(salones, bandas, eventos):
                 print("[4] Bandas más solicitadas")
                 print("[0] Volver")
                 op = input("Opción: ")
-                if op == "1": informe_eventos_mes(eventos, bandas, salones)
-                elif op == "2": resumen_cantidades(eventos, bandas)
-                elif op == "3": resumen_pesos(eventos, bandas)
-                elif op == "4": bandas_mas_solicitadas(eventos, bandas)
-                elif op == "0": break
-                if not esperar_continuar(): break
+                if op == "1":
+                    informe_eventos_mes(eventos, bandas, salones)
+                elif op == "2":
+                    resumen_cantidades(eventos, bandas)
+                elif op == "3":
+                    resumen_pesos(eventos, bandas)
+                elif op == "4":
+                    bandas_mas_solicitadas(eventos, bandas)
+                elif op == "0":
+                    break
+                if not esperar_continuar():
+                    break
 
         elif opcion == "0":
             print("Fin del programa")
