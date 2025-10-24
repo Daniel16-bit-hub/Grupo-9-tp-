@@ -36,7 +36,32 @@ salones = {
     "S005": {"nombre": "Terraza Río", "capacidad": 180, "ubicacion": "Puerto Madero",
              "alquiler": 280000,
              "servicios": {"serv1": "Vista al río", "serv2": "DJ residente", "serv3": "Catering marino"},
-             "activo": True}
+             "activo": True},
+
+    "S006": {"nombre": "Palacio Urbano","capacidad": 300, "ubicacion": "Palermo",
+        "alquiler": 350000,
+        "servicios": {"serv1": "Catering Gourmet","serv2": "Iluminación inteligente","serv3": "Escenario principal"},
+        "activo": True},
+
+    "S007": {"nombre": "Jardines del Lago","capacidad": 220,"ubicacion": "Costanera Norte",
+        "alquiler": 290000,
+        "servicios": {"serv1": "Espacio al aire libre","serv2": "DJ y sonido envolvente","serv3": "Catering orgánico"},
+        "activo": True},
+
+    "S008": {"nombre": "Agora Premium","capacidad": 180,"ubicacion": "Villa Urquiza",
+        "alquiler": 260000,
+        "servicios": {"serv1": "Pantalla LED 4K","serv2": "Servicio de barra","serv3": "Fotocabina"},
+        "activo": True},
+
+    "S009": {"nombre": "Luna Park View","capacidad": 400,"ubicacion": "Microcentro",
+        "alquiler": 400000,
+        "servicios": {"serv1": "Catering internacional","serv2": "Escenario giratorio","serv3": "DJ residente"},
+        "activo": True},
+
+    "S010": {"nombre": "Bahia Lounge","capacidad": 150,"ubicacion": "Puerto Madero",
+        "alquiler": 310000,
+        "servicios": {"serv1": "Vista panoramica al rio","serv2": "Bar libre","serv3": "Pantalla gigante"},
+        "activo": True}
 }
 
 bandas = {
