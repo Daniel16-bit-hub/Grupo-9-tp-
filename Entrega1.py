@@ -201,6 +201,7 @@ def esperar_continuar():
 # FUNCIONES CRUD SALONES
 #----------------------------------------------------------------------------------------------
 def altaSalon(salones):
+    #Opción 1 del submenú de Gestión de Salones
     codigo = input("Código del salón (###): ").upper()
     if codigo in salones:
         print("Ya existe un salón con ese código.")
@@ -233,6 +234,7 @@ def altaSalon(salones):
     return salones
 
 def modificarSalon(salones):
+    #Opción 2 del submenú de Gestión de Salones
     codigo = input("Código del salón a modificar: ").upper()
     if codigo not in salones or not salones[codigo]["activo"]:
         print("No encontrado o inactivo.")
@@ -248,6 +250,7 @@ def modificarSalon(salones):
     return salones
 
 def bajaSalon(salones):
+    #Opción 3 del submenú de Gestión de Salones
     codigo = input("Código del salón: ").upper()
     if codigo in salones and salones[codigo]["activo"]:
         salones[codigo]["activo"] = False
@@ -257,6 +260,7 @@ def bajaSalon(salones):
     return salones
 
 def listarSalones(salones):
+    #Opción 4 del submenú de Gestión de Salones
     print("\n--- SALONES ACTIVOS ---")
     for c, d in salones.items():
         if d["activo"]:
