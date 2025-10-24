@@ -17,6 +17,7 @@ from datetime import datetime
 # DATOS INICIALES
 #----------------------------------------------------------------------------------------------
 salones = {
+    #Diccionario de Salones
     "001": {"nombre": "Salón Dorado",
              "capacidad": 150,
              "ubicacion": "Recoleta",
@@ -100,6 +101,7 @@ salones = {
 }
 
 bandas = {
+    #Diccionario de Bandas
     "001": {"nombre": "Mordecai y los Rigbys",
              "genero": "Rock",
              "costo_media_hora": 80000,
@@ -179,13 +181,14 @@ bandas = {
                             "int4": "Voz Principal"},
             "activo": True},
 }
-
+#Eventos que se guardarán y se van a poder ver en los informes
 eventos = {}
 
 #----------------------------------------------------------------------------------------------
 # FUNCIONES AUXILIARES
 #----------------------------------------------------------------------------------------------
 def esperar_continuar():
+    #Función para que tengas la opción de continuar con el submenú o volver al menú principal para elegir otra opción
     """Pausa con opción de continuar o volver al menú principal"""
     print("\nPresione ENTER para continuar en este menú")
     print("O presione T para volver al menú principal")
