@@ -309,8 +309,7 @@ def bandas_mas_solicitadas(eventos, bandas):
 #----------------------------------------------------------------------------------------------
 # CUERPO PRINCIPAL
 #----------------------------------------------------------------------------------------------
-def main():
-    global salones, bandas, eventos
+def main(salones, bandas, eventos):
     while True:
         print("\n========= MENÚ PRINCIPAL =========")
         print("[1] Gestión de Salones")
@@ -379,4 +378,4 @@ def main():
 # PUNTO DE ENTRADA
 #----------------------------------------------------------------------------------------------
 if __name__ == "__main__":
-    main()
+    main(salones, bandas, eventos)
