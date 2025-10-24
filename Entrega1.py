@@ -424,8 +424,15 @@ def bandas_mas_solicitadas(eventos, bandas):
     costos = {}
     for ev in eventos.values():
         b = ev["codigo_banda"]
-        ranking[b] = ranking.get(b, 0) + 1
-        costos[b] = costos.get(b, 0) + ev["costo_total"]
+        if b in ranking:
+            ranking[b] = ranking[b] + 1  # Si ya existe, súmale 1
+        else:
+            ranking[b] = 1 # Si es la primera vez, inicia en 1 
+            
+        if b in costos:
+            costos[b] = costos[b] + ev["costo_total"] # Si ya existe, suma el costo
+        else:
+            costos[b] = ev["costo_total"]
     
     orden = sorted(ranking.items(), reverse=True)
     
