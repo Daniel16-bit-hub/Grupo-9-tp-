@@ -198,7 +198,7 @@ def esperar_continuar():
 # FUNCIONES CRUD SALONES
 #----------------------------------------------------------------------------------------------
 def altaSalon(salones):
-    codigo = input("Código del salón (S###): ").upper()
+    codigo = input("Código del salón (###): ").upper()
     if codigo in salones:
         print("Ya existe un salón con ese código.")
         return salones
@@ -265,7 +265,7 @@ def listarSalones(salones):
 # FUNCIONES CRUD BANDAS
 #----------------------------------------------------------------------------------------------
 def altaBanda(bandas):
-    codigo = input("Código (B###): ").upper()
+    codigo = input("Código (###): ").upper()
     if codigo in bandas:
         print("Ya existe esa banda.")
         return bandas
