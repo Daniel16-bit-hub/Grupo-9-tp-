@@ -204,7 +204,11 @@ def esperar_continuar():
 def altaSalon(salones):
     """"Esta función lo que te permite es cargar nuevos salones al sistema permitiéndote llenarlo con los datos que desees."""
     #Opción 1 del submenú de Gestión de Salones
-    codigo = input("Código del salón (###): ").upper()
+    codigo = ""
+    while codigo == "":
+        codigo = input("Código del salón (###): ").upper().strip()
+        if codigo == "":
+            print("El código no puede estar vacío.")
     if codigo in salones:
         print("Ya existe un salón con ese código.")
         return salones
@@ -290,7 +294,11 @@ def listarSalones(salones):
 def altaBanda(bandas):
     """Esta función sirve para cargar nuevas bandas con sus datos. Lo que hace es preguntar el nombre, género, costo (por media hora) y el código.
     S resetea si el código de la banda ya existe en otra."""
-    codigo = input("Código (###): ").upper()
+    codigo = ""
+    while codigo == "":
+        codigo = input("Código (###): ").upper().strip()
+        if codigo == "":
+            print("El código no puede estar vacío.")
     if codigo in bandas:
         print("Ya existe esa banda.")
         return bandas
@@ -308,7 +316,7 @@ def altaBanda(bandas):
             print("El género no puede estar vacío.")
             
     costo = float(input("Costo por media hora: "))
-    
+
     integrantes = {}
     i = 1
     while True:
