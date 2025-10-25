@@ -219,7 +219,13 @@ def altaSalon(salones):
         if nombre == "":
             print("El nombre no puede quedar vacío.")
             
-    capacidad = int(input("Capacidad máxima: "))
+    capacidad_txt = ""
+    while not capacidad_txt.isdigit():
+        capacidad_txt = input("Capacidad máxima: ").strip()
+        if not capacidad_txt.isdigit():
+            print("Error: la capacidad debe ser un número entero positivo.")
+    capacidad = int(capacidad_txt)
+        
 
     ubicacion = ""
     while ubicacion == "":
@@ -227,7 +233,20 @@ def altaSalon(salones):
         if ubicacion == "":
             print("La ubicación no puede estar vacía.")
     
-    alquiler = float(input("Costo de alquiler: "))
+    alquiler_txt = ""
+    while alquiler_txt == "" or not (alquiler_txt.replace(".", "", 1).isdigit()):
+        alquiler_txt = input("Costo de alquiler: ").strip().replace(",", ".")
+        if alquiler_txt == "" or not (alquiler_txt.replace(".", "", 1).isdigit()):
+            print("Error: ingrese un número válido (use punto o coma para decimales).")
+
+    alquiler = float(alquiler_txt)
+    while alquiler <= 0:
+        print("Error: el costo debe ser mayor a cero.")
+        alquiler_txt = input("Costo de alquiler: ").strip().replace(",", ".")
+        if alquiler_txt == "" or not (alquiler_txt.replace(".", "", 1).isdigit()):
+            print("Error: ingrese un número válido (use punto o coma).")
+        else:
+            alquiler = float(alquiler_txt)
 
     servicios = {}
     i = 1
@@ -315,7 +334,16 @@ def altaBanda(bandas):
         if genero == "":
             print("El género no puede estar vacío.")
             
-    costo = float(input("Costo por media hora: "))
+    costo_txt = ""
+    while not (costo_txt.replace(".", "", 1).isdigit()) or costo_txt == "" or float(costo_txt) <= 0:
+        costo_txt = input("Costo por media hora: ").strip().replace(",", ".")
+        if costo_txt == "" or not (costo_txt.replace(".", "", 1).isdigit()):
+            print("Error: ingrese un número válido (solo dígitos o punto).")
+        elif float(costo_txt) <= 0:
+            print("Error: el costo debe ser mayor a cero.")
+
+    costo = float(costo_txt)
+
 
     integrantes = {}
     i = 1
