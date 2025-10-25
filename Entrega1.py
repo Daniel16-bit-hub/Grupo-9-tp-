@@ -209,9 +209,20 @@ def altaSalon(salones):
         print("Ya existe un salón con ese código.")
         return salones
 
-    nombre = input("Nombre del salón: ")
+    nombre = ""
+    while nombre == "":
+        nombre = input("Nombre del salón: ").strip()
+        if nombre == "":
+            print("El nombre no puede quedar vacío.")
+            
     capacidad = int(input("Capacidad máxima: "))
-    ubicacion = input("Ubicación: ")
+
+    ubicacion = ""
+    while ubicacion == "":
+        ubicacion = input("Ubicación: ").strip()
+        if ubicacion == "":
+            print("La ubicación no puede estar vacía.")
+    
     alquiler = float(input("Costo de alquiler: "))
 
     servicios = {}
@@ -284,10 +295,20 @@ def altaBanda(bandas):
         print("Ya existe esa banda.")
         return bandas
 
-    nombre = input("Nombre: ")
-    genero = input("Género: ")
-    costo = float(input("Costo por media hora: "))
+    nombre = ""
+    while nombre == "":
+        nombre = input("Nombre: ").strip()
+        if nombre == "":
+            print("El nombre no puede estar vacío.")
 
+    genero = ""
+    while genero == "":
+        genero = input("Género: ").strip()
+        if genero == "":
+            print("El género no puede estar vacío.")
+            
+    costo = float(input("Costo por media hora: "))
+    
     integrantes = {}
     i = 1
     while True:
