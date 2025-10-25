@@ -181,6 +181,7 @@ bandas = {
                             "int4": "Voz Principal"},
             "activo": True},
 }
+
 #Eventos que se guardarán y se van a poder ver en los informes
 eventos = {}
 
@@ -201,6 +202,7 @@ def esperar_continuar():
 # FUNCIONES CRUD SALONES
 #----------------------------------------------------------------------------------------------
 def altaSalon(salones):
+    """"Esta función lo que te permite es cargar nuevos salones al sistema permitiéndote llenarlo con los datos que desees."""
     #Opción 1 del submenú de Gestión de Salones
     codigo = input("Código del salón (###): ").upper()
     if codigo in salones:
@@ -234,6 +236,7 @@ def altaSalon(salones):
     return salones
 
 def modificarSalon(salones):
+    """"Esta funcion sirve para modificar los datos de un salón una vez que se ingresa el código de identificación de la misma."""
     #Opción 2 del submenú de Gestión de Salones
     codigo = input("Código del salón a modificar: ").upper()
     if codigo not in salones or not salones[codigo]["activo"]:
@@ -250,6 +253,7 @@ def modificarSalon(salones):
     return salones
 
 def bajaSalon(salones):
+    """Esta función te pregunta el código de el salón que quieres dar de baja y si está escrito correctamente o si existe siquiera da de baja el salón seleccionado"""
     #Opción 3 del submenú de Gestión de Salones
     codigo = input("Código del salón: ").upper()
     if codigo in salones and salones[codigo]["activo"]:
@@ -260,6 +264,7 @@ def bajaSalon(salones):
     return salones
 
 def listarSalones(salones):
+    """Esta función muestra una lista ordenada de todos los salones activos que estén cargados en el sistema."""
     #Opción 4 del submenú de Gestión de Salones
     print("\n--- SALONES ACTIVOS ---")
     for c, d in salones.items():
@@ -272,6 +277,8 @@ def listarSalones(salones):
 # FUNCIONES CRUD BANDAS
 #----------------------------------------------------------------------------------------------
 def altaBanda(bandas):
+    """Esta función sirve para cargar nuevas bandas con sus datos. Lo que hace es preguntar el nombre, género, costo (por media hora) y el código.
+    S resetea si el código de la banda ya existe en otra."""
     codigo = input("Código (###): ").upper()
     if codigo in bandas:
         print("Ya existe esa banda.")
@@ -302,6 +309,8 @@ def altaBanda(bandas):
     return bandas
 
 def modificarBanda(bandas):
+    """"Esta función sirve para modificar los datos de la banda una vez que se ingresa el código de la misma. 
+    Si el código no es correcto o no existe directamente la función te lo marca."""
     codigo = input("Código de banda: ").upper()
     if codigo not in bandas or not bandas[codigo]["activo"]:
         print("Banda no encontrada o inactiva.")
@@ -316,6 +325,8 @@ def modificarBanda(bandas):
     return bandas
 
 def bajaBanda(bandas):
+    """"Esta función sirve para cargar el código de una banda que se quiere dar de baja o desactivar. 
+    una vez ingresado el código correcto de la misma, se la desactiva."""
     codigo = input("Código de banda: ").upper()
     if codigo in bandas and bandas[codigo]["activo"]:
         bandas[codigo]["activo"] = False
@@ -325,6 +336,7 @@ def bajaBanda(bandas):
     return bandas
 
 def listarBandas(bandas):
+    """"Esta función muestra el listado de todas las bandas activas que estén cargadas en el sistema"""
     print("\n--- BANDAS ACTIVAS ---")
     for c, d in bandas.items():
         if d["activo"]:
@@ -336,6 +348,8 @@ def listarBandas(bandas):
 # FUNCIONES EVENTOS
 #----------------------------------------------------------------------------------------------
 def registrarEvento(eventos, salones, bandas):
+    """Esta función sirve para cargar los eventos de el salón seleccionado ingresado a partir de su código de identificación y de la banda ingresada del mismo modo, 
+    después pide la duración de (en horas) del evento y calcula el costo de la misma. Luego muestra todos los datos cargados con el costo del evento"""
     codigo_evento = f"E{len(eventos)+1:03}"
     
     codigo_salon = input("Código del salón: ").upper()
@@ -350,7 +364,7 @@ def registrarEvento(eventos, salones, bandas):
 
     duracion = float(input("Duración (hs): "))
     costo = bandas[codigo_banda]["costo_media_hora"] * (duracion * 2)
-    #REVISAR ESTO DE ABAJO
+ 
     fecha = datetime.now().strftime("%Y.%m.%d %H:%M:%S")
 
     eventos[codigo_evento] = {
@@ -368,6 +382,7 @@ def registrarEvento(eventos, salones, bandas):
 # INFORMES
 #----------------------------------------------------------------------------------------------
 def informe_eventos_mes(eventos, bandas, salones):
+    """Esta función muestra de manera detallada todos los eventos cargados del mes actual mostrando todos sus datos"""
     print("\n--- EVENTOS DEL MES ---")
     mes_actual = datetime.now().strftime("%Y.%m")
     print(f"{'Fecha/Hora':20} {'Salón':20} {'Banda':20} {'Duración':10} {'Costo':10}")
@@ -384,6 +399,7 @@ def informe_eventos_mes(eventos, bandas, salones):
 
 
 def resumen_cantidades(eventos, bandas):
+    """Esta función muestra en forma de matriz todos los eventos del mes con todos los datos de la misma."""
     matriz = {b: [0]*12 for b in bandas if bandas[b]["activo"]}
     
     for ev in eventos.values():
@@ -402,6 +418,7 @@ def resumen_cantidades(eventos, bandas):
 
 
 def resumen_pesos(eventos, bandas):
+    """Esta función muestra el costo total de eventos por mes de cada banda que esté en el sistema."""
     matriz = {b: [0]*12 for b in bandas if bandas[b]["activo"]}
     
     for ev in eventos.values():
@@ -420,6 +437,7 @@ def resumen_pesos(eventos, bandas):
 
 
 def bandas_mas_solicitadas(eventos, bandas):
+    """Esta función lo que hace es revisar todos los eventos del sistemas y hacer un ranking de mayor a menor de cuál fue la banda más solicitada en el año"""
     ranking = {}
     costos = {}
     for ev in eventos.values():
@@ -447,6 +465,8 @@ def bandas_mas_solicitadas(eventos, bandas):
 # CUERPO PRINCIPAL
 #----------------------------------------------------------------------------------------------
 def main(salones, bandas, eventos):
+    """"Aquí está toda la interfaz del programa en sí y como el programa llama a las demás funciones acerca de las bandas, salones,
+    como se gestionan los eventos y demás funciones del programa"""
     while True:
         print("\n========= MENÚ PRINCIPAL =========")
         print("[1] Gestión de Salones")
