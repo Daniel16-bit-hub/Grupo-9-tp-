@@ -13,9 +13,33 @@ calculando los costos del servicio. El sistema es utilizado por un único admini
 #----------------------------------------------------------------------------------------------
 # MÓDULOS
 #----------------------------------------------------------------------------------------------
-from datetime import datetime
+from datetime import datetime 
+import json
+
+SALONES_FILE = "salones.json"
+BANDAS_FILE  = "bandas.json"
+EVENTOS_FILE = "eventos.json"
+
+def cargar_json(ruta, default):
+    """Carga un archivo JSON y devuelve un diccionario."""
+    try:
+        with open(ruta, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        # si no existe, devolvemos default
+        return default
+    except json.JSONDecodeError:
+        print(f"Error: {ruta} está dañado. Se usará vacío.")
+        return default
 
 
+def guardar_json(ruta, datos):
+    """Guarda un diccionario en un archivo JSON."""
+    try:
+        with open(ruta, "w", encoding="utf-8") as f:
+            json.dump(datos, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"Error al guardar {ruta}: {e}")
 #----------------------------------------------------------------------------------------------
 # FUNCIONES
 #----------------------------------------------------------------------------------------------
@@ -44,7 +68,6 @@ def altaSalon(salones):
         Diccionario actualizado con el nuevo salón agregado.
     """
 
-    #Opción 1 del submenú de Gestión de Salones
     codigo = ""
     while codigo == "":
         codigo = input("Código del salón (###): ").upper().strip()
@@ -59,41 +82,32 @@ def altaSalon(salones):
         nombre = input("Nombre del salón: ").strip()
         if nombre == "":
             print("El nombre no puede quedar vacío.")
-            
-    capacidad_txt = ""
-    while not capacidad_txt.isdigit():
-        capacidad_txt = input("Capacidad máxima: ").strip()
-        if not capacidad_txt.isdigit():
-            print("Error: la capacidad debe ser un número entero positivo.")
-    capacidad = int(capacidad_txt)
-        
+
+    cap_txt = ""
+    while not cap_txt.isdigit():
+        cap_txt = input("Capacidad máxima: ").strip()
+        if not cap_txt.isdigit():
+            print("Error: la capacidad debe ser un entero positivo.")
+    capacidad = int(cap_txt)
 
     ubicacion = ""
     while ubicacion == "":
         ubicacion = input("Ubicación: ").strip()
         if ubicacion == "":
             print("La ubicación no puede estar vacía.")
-    
-    alquiler_txt = ""
-    while alquiler_txt == "" or not (alquiler_txt.replace(".", "", 1).isdigit()):
-        alquiler_txt = input("Costo de alquiler: ").strip().replace(",", ".")
-        if alquiler_txt == "" or not (alquiler_txt.replace(".", "", 1).isdigit()):
-            print("Error: ingrese un número válido (use punto o coma para decimales).")
 
-    alquiler = float(alquiler_txt)
-    while alquiler <= 0:
-        print("Error: el costo debe ser mayor a cero.")
-        alquiler_txt = input("Costo de alquiler: ").strip().replace(",", ".")
-        if alquiler_txt == "" or not (alquiler_txt.replace(".", "", 1).isdigit()):
-            print("Error: ingrese un número válido (use punto o coma).")
-        else:
-            alquiler = float(alquiler_txt)
+    alq_txt = ""
+    while not alq_txt.isdigit() or int(alq_txt) <= 0:
+        alq_txt = input("Costo de alquiler: ").strip()
+        if not alq_txt.isdigit() or int(alq_txt) <= 0:
+            print("Error: el costo debe ser un número mayor a 0.")
+    alquiler = float(alq_txt)
 
     servicios = {}
     i = 1
     while True:
         serv = input(f"Ingrese servicio {i} (ENTER para terminar): ").strip()
-        if not serv:
+        if serv == "":
             break
         servicios[f"serv{i}"] = serv
         i += 1
@@ -106,8 +120,8 @@ def altaSalon(salones):
         "servicios": servicios,
         "activo": True
     }
-
-    print(f"Salón {nombre} agregado con {len(servicios)} servicios.")
+    guardar_json(SALONES_FILE, salones)
+    print(f"Salón {nombre} agregado correctamente.")
     return salones
 
 def modificarSalon(salones):
@@ -130,6 +144,7 @@ def modificarSalon(salones):
     salon["ubicacion"] = input(f"Ubicación [{salon['ubicacion']}]: ") or salon["ubicacion"]
     salon["alquiler"] = float(input(f"Alquiler [{salon['alquiler']}]: ") or salon["alquiler"])
 
+    guardar_json(SALONES_FILE, salones)
     print("Salón modificado.")
     return salones
 
@@ -146,6 +161,7 @@ def bajaSalon(salones):
     codigo = input("Código del salón: ").upper()
     if codigo in salones and salones[codigo]["activo"]:
         salones[codigo]["activo"] = False
+        guardar_json(SALONES_FILE, salones) 
         print("Salón desactivado.")
     else:
         print("No existe o ya estaba inactivo.")
@@ -225,6 +241,7 @@ def altaBanda(bandas):
         "activo": True
     }
 
+    guardar_json(BANDAS_FILE, bandas)
     print(f"Banda {nombre} agregada con {len(integrantes)} integrantes.")
     return bandas
 
@@ -247,6 +264,7 @@ def modificarBanda(bandas):
     banda["genero"] = input(f"Género [{banda['genero']}]: ") or banda["genero"]
     banda["costo_media_hora"] = float(input(f"Costo [{banda['costo_media_hora']}]: ") or banda["costo_media_hora"])
 
+    guardar_json(BANDAS_FILE, bandas)
     print("Banda modificada.")
     return bandas
 
@@ -261,6 +279,7 @@ def bajaBanda(bandas):
     codigo = input("Código de banda: ").upper()
     if codigo in bandas and bandas[codigo]["activo"]:
         bandas[codigo]["activo"] = False
+        guardar_json(BANDAS_FILE, bandas)
         print("Banda desactivada.")
     else:
         print("No existe o ya estaba inactiva.")
@@ -317,6 +336,7 @@ def registrarEvento(eventos, salones, bandas):
         "costo_total": costo
     }
 
+    guardar_json(EVENTOS_FILE, eventos)
     print(f"Evento {codigo_evento} registrado. Costo total ${costo:,.2f}")
     return eventos
 
@@ -436,196 +456,9 @@ def main():
     #-------------------------------------------------
     # Inicialización de variables
     #-------------------------------------------------
-    salones = {
-        "001": {"nombre": "Salón Dorado",
-                "capacidad": 150,
-                "ubicacion": "Recoleta",
-                "alquiler": 250000,
-                "servicios": {"serv1": "Catering",
-                              "serv2": "DJ",
-                              "serv3": "Decoración"},
-                "activo": True},
-        "002": {"nombre": "Sky Lounge",
-                "capacidad": 200,
-                "ubicacion": "Palermoc Soho",
-                "alquiler": 300000,
-                "servicios": {"serv1": "Luces",
-                              "serv2": "Pantalla LED",
-                              "serv3": "Bar libre"},
-                "activo": True},
-        "003": {"nombre": "Espacio Lux",
-                "capacidad": 120,
-                "ubicacion": "San Telmo",
-                "alquiler": 180000,
-                "servicios": {"serv1": "Catering Premium",
-                              "serv2": "Iluminación",
-                              "serv3": "Escenario"},
-                "activo": True},
-        "004": {"nombre": "Eventos Plaza",
-                "capacidad": 250,
-                "ubicacion": "Belgrano",
-                "alquiler": 320000,
-                "servicios": {"serv1": "Barra",
-                              "serv2": "Fotocabina",
-                              "serv3": "Pantalla gigante"},
-                "activo": True},
-        "005": {"nombre": "Terraza Río",
-                "capacidad": 180,
-                "ubicacion": "Puerto Madero",
-                "alquiler": 280000,
-                "servicios": {"serv1": "Vista al río",
-                              "serv2": "DJ residente",
-                              "serv3": "Catering marino"},
-                "activo": True},
-        "006": {"nombre": "Palacio Urbano",
-                "capacidad": 300,
-                "ubicacion": "Palermo",
-                "alquiler": 350000,
-                "servicios": {"serv1": "Catering Gourmet",
-                              "serv2": "Iluminación inteligente",
-                              "serv3": "Escenario principal"},
-                "activo": True},
-        "007": {"nombre": "Jardines del Lago",
-                "capacidad": 220,
-                "ubicacion": "Costanera Norte",
-                "alquiler": 290000,
-                "servicios": {"serv1": "Espacio al aire libre",
-                              "serv2": "DJ y sonido envolvente",
-                              "serv3": "Catering orgánico"},
-                "activo": True},
-        "008": {"nombre": "Agora Premium",
-                "capacidad": 180,
-                "ubicacion": "Villa Urquiza",
-                "alquiler": 260000,
-                "servicios": {"serv1": "Pantalla LED 4K",
-                              "serv2": "Servicio de barra",
-                              "serv3": "Fotocabina"},
-                "activo": True},
-        "009": {"nombre": "Luna Park View",
-                "capacidad": 400,
-                "ubicacion": "Microcentro",
-                "alquiler": 400000,
-                "servicios": {"serv1": "Catering internacional",
-                              "serv2": "Escenario giratorio",
-                              "serv3": "DJ residente"},
-                "activo": True},
-        "010": {"nombre": "Bahia Lounge",
-                "capacidad": 150,
-                "ubicacion": "Puerto Madero",
-                "alquiler": 310000,
-                "servicios": {"serv1": "Vista panoramica al rio",
-                              "serv2": "Bar libre",
-                              "serv3": "Pantalla gigante"},
-                "activo": True}
-    }
-
-    bandas = {
-        "001": {"nombre": "Mordecai y los Rigbys",
-                "genero": "Rock",
-                "costo_media_hora": 80000,
-                "integrantes": {"int1": "Cantante",
-                                "int2": "Guitarrista",
-                                "int3": "Bajista",
-                                "int4": "Baterista"},
-                "activo": True},
-        "002": {"nombre": "JazzVibes",
-                "genero": "Jazz",
-                "costo_media_hora": 70000,
-                "integrantes": {"int1": "Saxofonista",
-                                "int2": "Pianista",
-                                "int3": "Contrabajista",
-                                "int4": "Baterista"},
-                "activo": True},
-        "003": {"nombre": "PopZzzone",
-                "genero": "Pop",
-                "costo_media_hora": 60000,
-                "integrantes": {"int1": "Vocalista",
-                                "int2": "Tecladista",
-                                "int3": "Bajista",
-                                "int4": "Baterista"},
-                "activo": True},
-        "004": {"nombre": "Electronics Bit",
-                "genero": "Electrónica",
-                "costo_media_hora": 90000,
-                "integrantes": {"int1": "DJ",
-                                "int2": "Percusionista",
-                                "int3": "Técnico de sonido"},
-                "activo": True},
-        "005": {"nombre": "Salsa Mamma mia",
-                "genero": "Salsa",
-                "costo_media_hora": 75000,
-                "integrantes": {"int1": "Cantante",
-                                "int2": "Pianista",
-                                "int3": "Percusionista",
-                                "int4": "Bajista"},
-                "activo": True},
-        "006": {"nombre": "Midnight Riders",
-                "genero": "Rock",
-                "costo_media_hora": 45000,
-                "integrantes": {"int1": "Guitarrista",
-                                "int2": "Bajo y teclado",
-                                "int3": "Vocalista y Ritmo",
-                                "int4": "Baterista"},
-                "activo": True},
-        "007": {"nombre": "Asspera",
-                "genero": "Rock bizarro",
-                "costo_media_hora": 69000,
-                "integrantes": {"int1": "Vocalista",
-                                "int2": "Bajo y teclado",
-                                "int3": "Gitarrista",
-                                "int4": "Bajista"},
-                "activo": True},
-        "008": {"nombre": "Vocaloid",
-                "genero": "JPOP",
-                "costo_media_hora": 91000,
-                "integrantes": {"int1": "Vocalista 1",
-                                "int2": "Vocalista 2",
-                                "int3": "Vocalista 3",
-                                "int4": "Instrumental"},
-                "activo": True},
-        "009": {"nombre": "Tan Bionica",
-                "genero": "Pop Alternado",
-                "costo_media_hora": 76000,
-                "integrantes": {"int1": "Voz Principal",
-                                "int2": "Gitarrista",
-                                "int3": "Baterista",
-                                "int4": "Teclado"},
-                "activo": True},
-        "010": {"nombre": "Los Wachiturros",
-                "genero": "Cumbia Villera",
-                "costo_media_hora": 23000,
-                "integrantes": {"int1": "Baterista",
-                                "int2": "Tecladista",
-                                "int3": "Vocalista",
-                                "int4": "Voz Principal"},
-                "activo": True}
-    }
-
-    # Diccionario donde se guardarán los eventos
-    eventos = {
-        "E001": {
-            "fecha_hora": "2025.11.15 20:00:00",
-            "codigo_salon": "001",            # Salón Dorado
-            "codigo_banda": "001",            # Mordecai y los Rigbys
-            "duracion_horas": 3,
-            "costo_total": bandas["001"]["costo_media_hora"] * (3 * 2)   # 3 horas → 6 medias horas
-        },
-        "E002": {
-            "fecha_hora": "2025.11.18 22:30:00",
-            "codigo_salon": "004",            # Eventos Plaza
-            "codigo_banda": "004",            # Electronics Bit
-            "duracion_horas": 2.5,
-            "costo_total": bandas["004"]["costo_media_hora"] * (2.5 * 2)
-        },
-        "E003": {
-            "fecha_hora": "2025.10.05 19:15:00",
-            "codigo_salon": "010",            # Bahía Lounge
-            "codigo_banda": "009",            # Tan Biónica
-            "duracion_horas": 4,
-            "costo_total": bandas["009"]["costo_media_hora"] * (4 * 2)
-        }
-    }
-
+    salones = cargar_json(SALONES_FILE, {})
+    bandas  = cargar_json(BANDAS_FILE, {})
+    eventos = cargar_json(EVENTOS_FILE, {})
     #-------------------------------------------------
     # Bloque de menú principal
     #-------------------------------------------------
@@ -659,7 +492,7 @@ def main():
                 elif op == "2":
                     salones = modificarSalon(salones)
                 elif op == "3":
-                    bajaSalon(salones)
+                    salones = bajaSalon(salones)
                 elif op == "4":
                     listarSalones(salones)
                 elif op == "0":
@@ -677,7 +510,7 @@ def main():
                 elif op == "2":
                     bandas = modificarBanda(bandas)
                 elif op == "3":
-                    bajaBanda(bandas)
+                    bandas = bajaBanda(bandas)
                 elif op == "4":
                     listarBandas(bandas)
                 elif op == "0":

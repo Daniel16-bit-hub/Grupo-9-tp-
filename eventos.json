@@ -1,0 +1,23 @@
+{
+  "E001": {
+    "fecha_hora": "2025.11.15 20:00:00",
+    "codigo_salon": "001",
+    "codigo_banda": "001",
+    "duracion_horas": 3,
+    "costo_total": 480000
+  },
+  "E002": {
+    "fecha_hora": "2025.11.18 22:30:00",
+    "codigo_salon": "004",
+    "codigo_banda": "004",
+    "duracion_horas": 2.5,
+    "costo_total": 450000.0
+  },
+  "E003": {
+    "fecha_hora": "2025.10.05 19:15:00",
+    "codigo_salon": "010",
+    "codigo_banda": "009",
+    "duracion_horas": 4,
+    "costo_total": 608000
+  }
+}

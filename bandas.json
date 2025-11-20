@@ -1,0 +1,121 @@
+{
+  "001": {
+    "nombre": "Mordecai y los Rigbys",
+    "genero": "Rock",
+    "costo_media_hora": 80000,
+    "integrantes": {
+      "int1": "Cantante",
+      "int2": "Guitarrista",
+      "int3": "Bajista",
+      "int4": "Baterista"
+    },
+    "activo": true
+  },
+  "002": {
+    "nombre": "JazzVibes",
+    "genero": "Jazz",
+    "costo_media_hora": 70000,
+    "integrantes": {
+      "int1": "Saxofonista",
+      "int2": "Pianista",
+      "int3": "Contrabajista",
+      "int4": "Baterista"
+    },
+    "activo": true
+  },
+  "003": {
+    "nombre": "PopZzzone",
+    "genero": "Pop",
+    "costo_media_hora": 60000,
+    "integrantes": {
+      "int1": "Vocalista",
+      "int2": "Tecladista",
+      "int3": "Bajista",
+      "int4": "Baterista"
+    },
+    "activo": true
+  },
+  "004": {
+    "nombre": "Electronics Bit",
+    "genero": "Electrónica",
+    "costo_media_hora": 90000,
+    "integrantes": {
+      "int1": "DJ",
+      "int2": "Percusionista",
+      "int3": "Técnico de sonido"
+    },
+    "activo": true
+  },
+  "005": {
+    "nombre": "Salsa Mamma mia",
+    "genero": "Salsa",
+    "costo_media_hora": 75000,
+    "integrantes": {
+      "int1": "Cantante",
+      "int2": "Pianista",
+      "int3": "Percusionista",
+      "int4": "Bajista"
+    },
+    "activo": true
+  },
+  "006": {
+    "nombre": "Midnight Riders",
+    "genero": "Rock",
+    "costo_media_hora": 45000,
+    "integrantes": {
+      "int1": "Guitarrista",
+      "int2": "Bajo y teclado",
+      "int3": "Vocalista y Ritmo",
+      "int4": "Baterista"
+    },
+    "activo": true
+  },
+  "007": {
+    "nombre": "Asspera",
+    "genero": "Rock bizarro",
+    "costo_media_hora": 69000,
+    "integrantes": {
+      "int1": "Vocalista",
+      "int2": "Bajo y teclado",
+      "int3": "Gitarrista",
+      "int4": "Bajista"
+    },
+    "activo": true
+  },
+  "008": {
+    "nombre": "Vocaloid",
+    "genero": "JPOP",
+    "costo_media_hora": 91000,
+    "integrantes": {
+      "int1": "Vocalista 1",
+      "int2": "Vocalista 2",
+      "int3": "Vocalista 3",
+      "int4": "Instrumental"
+    },
+    "activo": true
+  },
+  "009": {
+    "nombre": "Tan Bionica",
+    "genero": "Pop Alternado",
+    "costo_media_hora": 76000,
+    "integrantes": {
+      "int1": "Voz Principal",
+      "int2": "Gitarrista",
+      "int3": "Baterista",
+      "int4": "Teclado"
+    },
+    "activo": true
+  },
+  "010": {
+    "nombre": "Los Wachiturros",
+    "genero": "Cumbia Villera",
+    "costo_media_hora": 23000,
+    "integrantes": {
+      "int1": "Baterista",
+      "int2": "Tecladista",
+      "int3": "Vocalista",
+      "int4": "Voz Principal"
+    },
+    "activo": true
+  }
+}
