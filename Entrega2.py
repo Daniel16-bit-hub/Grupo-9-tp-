@@ -72,35 +72,35 @@ def altaSalon(salones):
     while codigo == "":
         codigo = input("Código del salón (###): ").upper().strip()
         if codigo == "":
-            print("El código no puede estar vacío.")
+            print("El código no puede estar vacío")
     if codigo in salones:
-        print("Ya existe un salón con ese código.")
+        print("Ya existe un salón con ese código")
         return salones
 
     nombre = ""
     while nombre == "":
         nombre = input("Nombre del salón: ").strip()
         if nombre == "":
-            print("El nombre no puede quedar vacío.")
+            print("El nombre no puede quedar vacío")
 
     cap_txt = ""
     while not cap_txt.isdigit():
         cap_txt = input("Capacidad máxima: ").strip()
         if not cap_txt.isdigit():
-            print("Error: la capacidad debe ser un entero positivo.")
+            print("Error: la capacidad debe ser un entero positivo")
     capacidad = int(cap_txt)
 
     ubicacion = ""
     while ubicacion == "":
         ubicacion = input("Ubicación: ").strip()
         if ubicacion == "":
-            print("La ubicación no puede estar vacía.")
+            print("La ubicación no puede estar vacía")
 
     alq_txt = ""
     while not alq_txt.isdigit() or int(alq_txt) <= 0:
         alq_txt = input("Costo de alquiler: ").strip()
         if not alq_txt.isdigit() or int(alq_txt) <= 0:
-            print("Error: el costo debe ser un número mayor a 0.")
+            print("Error: el costo debe ser un número mayor a 0")
     alquiler = float(alq_txt)
 
     servicios = {}
@@ -121,7 +121,7 @@ def altaSalon(salones):
         "activo": True
     }
     guardar_json(SALONES_FILE, salones)
-    print(f"Salón {nombre} agregado correctamente.")
+    print(f"Salón {nombre} agregado correctamente")
     return salones
 
 def modificarSalon(salones):
@@ -145,7 +145,7 @@ def modificarSalon(salones):
     salon["alquiler"] = float(input(f"Alquiler [{salon['alquiler']}]: ") or salon["alquiler"])
 
     guardar_json(SALONES_FILE, salones)
-    print("Salón modificado.")
+    print("Salón modificado")
     return salones
 
 def bajaSalon(salones):
@@ -162,9 +162,9 @@ def bajaSalon(salones):
     if codigo in salones and salones[codigo]["activo"]:
         salones[codigo]["activo"] = False
         guardar_json(SALONES_FILE, salones) 
-        print("Salón desactivado.")
+        print("Salón desactivado")
     else:
-        print("No existe o ya estaba inactivo.")
+        print("No existe o ya estaba inactivo")
     return salones
 
 def listarSalones(salones):
@@ -196,30 +196,30 @@ def altaBanda(bandas):
     while codigo == "":
         codigo = input("Código (###): ").upper().strip()
         if codigo == "":
-            print("El código no puede estar vacío.")
+            print("El código no puede estar vacío")
     if codigo in bandas:
-        print("Ya existe esa banda.")
+        print("Ya existe esa banda")
         return bandas
 
     nombre = ""
     while nombre == "":
         nombre = input("Nombre: ").strip()
         if nombre == "":
-            print("El nombre no puede estar vacío.")
+            print("El nombre no puede estar vacío")
 
     genero = ""
     while genero == "":
         genero = input("Género: ").strip()
         if genero == "":
-            print("El género no puede estar vacío.")
+            print("El género no puede estar vacío")
             
     costo_txt = ""
     while not (costo_txt.replace(".", "", 1).isdigit()) or costo_txt == "" or float(costo_txt) <= 0:
         costo_txt = input("Costo por media hora: ").strip().replace(",", ".")
         if costo_txt == "" or not (costo_txt.replace(".", "", 1).isdigit()):
-            print("Error: ingrese un número válido (solo dígitos o punto).")
+            print("Error: ingrese un número válido (solo dígitos o punto)")
         elif float(costo_txt) <= 0:
-            print("Error: el costo debe ser mayor a cero.")
+            print("Error: el costo debe ser mayor a cero")
 
     costo = float(costo_txt)
 
@@ -242,7 +242,7 @@ def altaBanda(bandas):
     }
 
     guardar_json(BANDAS_FILE, bandas)
-    print(f"Banda {nombre} agregada con {len(integrantes)} integrantes.")
+    print(f"Banda {nombre} agregada con {len(integrantes)} integrantes")
     return bandas
 
 def modificarBanda(bandas):
@@ -256,7 +256,7 @@ def modificarBanda(bandas):
 
     codigo = input("Código de banda: ").upper()
     if codigo not in bandas or not bandas[codigo]["activo"]:
-        print("Banda no encontrada o inactiva.")
+        print("Banda no encontrada o inactiva")
         return bandas
 
     banda = bandas[codigo]
@@ -265,7 +265,7 @@ def modificarBanda(bandas):
     banda["costo_media_hora"] = float(input(f"Costo [{banda['costo_media_hora']}]: ") or banda["costo_media_hora"])
 
     guardar_json(BANDAS_FILE, bandas)
-    print("Banda modificada.")
+    print("Banda modificada")
     return bandas
 
 def bajaBanda(bandas):
@@ -280,9 +280,9 @@ def bajaBanda(bandas):
     if codigo in bandas and bandas[codigo]["activo"]:
         bandas[codigo]["activo"] = False
         guardar_json(BANDAS_FILE, bandas)
-        print("Banda desactivada.")
+        print("Banda desactivada")
     else:
-        print("No existe o ya estaba inactiva.")
+        print("No existe o ya estaba inactiva")
     return bandas
 
 def listarBandas(bandas):
