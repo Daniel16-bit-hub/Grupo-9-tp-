@@ -19,5 +19,54 @@
     "codigo_banda": "009",
     "duracion_horas": 4,
     "costo_total": 608000
+  },
+  "E004": {
+    "fecha_hora": "2025.2.10 18:10:20",
+    "codigo_salon": "005",
+    "codigo_banda": "002",
+    "duracion_horas": 2,
+    "costo_total": 608055
+  },
+  "E005": {
+    "fecha_hora": "2025.4.13 17:2:00",
+    "codigo_salon": "002",
+    "codigo_banda": "005",
+    "duracion_horas": 2,
+    "costo_total": 332649
+  },
+  "E006": {
+    "fecha_hora": "2025.6.16 19:15:00",
+    "codigo_salon": "001",
+    "codigo_banda": "003",
+    "duracion_horas": 8,
+    "costo_total": 124685
+  },
+  "E007": {
+    "fecha_hora": "2025.8.19 19:15:00",
+    "codigo_salon": "006",
+    "codigo_banda": "004",
+    "duracion_horas": 5,
+    "costo_total": 662245
+  },
+  "E008": {
+    "fecha_hora": "2025.10.22 19:15:00",
+    "codigo_salon": "002",
+    "codigo_banda": "006",
+    "duracion_horas": 4,
+    "costo_total": 183624
+  },
+  "E009": {
+    "fecha_hora": "2025.12.25 19:15:00",
+    "codigo_salon": "007",
+    "codigo_banda": "007",
+    "duracion_horas": 3,
+    "costo_total": 714556
+  },
+  "E010": {
+    "fecha_hora": "2025.1.28 19:15:00",
+    "codigo_salon": "005",
+    "codigo_banda": "008",
+    "duracion_horas": 4,
+    "costo_total": 764128
   }
 }
