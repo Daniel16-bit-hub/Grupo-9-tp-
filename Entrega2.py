@@ -44,9 +44,7 @@ def guardar_json(ruta, datos):
 # FUNCIONES
 #----------------------------------------------------------------------------------------------
 def esperar_continuar():
-    #Función para que tengas la opción de continuar con el submenú o volver al menú principal para elegir otra opción
-    """
-    Pausa la ejecución y permite elegir si continuar en el submenú o volver al menú principal.
+    """Pausa la ejecución y permite elegir si continuar en el submenú o volver al menú principal.
     PARÁMETROS:
         Ninguno.
     SALIDA:
@@ -60,8 +58,7 @@ def esperar_continuar():
     return True  # continuar en el submenú
 
 def altaSalon(salones):
-    """
-    Da de alta un nuevo salón solicitando sus datos al usuario.
+    """Da de alta un nuevo salón solicitando sus datos al usuario.
     PARÁMETROS:
         salones: diccionario con los salones registrados.
     SALIDA:
