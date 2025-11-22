@@ -150,7 +150,7 @@ def altaSalon(salones):
         "capacidad": capacidad,
         "ubicacion": ubicacion,
         "alquiler": alquiler,
-        "email": email, """NUEVO"""
+        "email": email, 
         "servicios": servicios,
         "activo": True
     }
@@ -321,7 +321,7 @@ def altaBanda(bandas):
         "nombre": nombre,
         "genero": genero,
         "costo_media_hora": costo,
-        "email": email, """NUEVO"""
+        "email": email, 
         "integrantes": integrantes,
         "activo": True
     }
