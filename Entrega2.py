@@ -15,6 +15,7 @@ calculando los costos del servicio. El sistema es utilizado por un único admini
 #----------------------------------------------------------------------------------------------
 from datetime import datetime 
 import json
+import re  
 
 SALONES_FILE = "salones.json"
 BANDAS_FILE  = "bandas.json"
@@ -40,9 +41,26 @@ def guardar_json(ruta, datos):
             json.dump(datos, f, ensure_ascii=False, indent=2)
     except Exception as e:
         print(f"Error al guardar {ruta}: {e}")
+
 #----------------------------------------------------------------------------------------------
 # FUNCIONES
 #----------------------------------------------------------------------------------------------
+"""NUEVO"""
+def validar_email(email):     
+    """
+    Valida si un email cumple con el formato estándar utilizando Expresiones Regulares.
+    Patrón solicitado en consigna.
+    """
+    patron = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+    if re.match(patron, email):
+        return True
+    return False
+
+"""NUEVO"""
+def ordenar_por_cantidad(item):
+    """Función auxiliar para ordenar el ranking (reemplaza uso de lambda)."""
+    return item[1]
+
 def esperar_continuar():
     """Pausa la ejecución y permite elegir si continuar en el submenú o volver al menú principal.
     PARÁMETROS:
@@ -80,12 +98,17 @@ def altaSalon(salones):
         if nombre == "":
             print("El nombre no puede quedar vacío")
 
-    cap_txt = ""
-    while not cap_txt.isdigit():
-        cap_txt = input("Capacidad máxima: ").strip()
-        if not cap_txt.isdigit():
-            print("Error: la capacidad debe ser un entero positivo")
-    capacidad = int(cap_txt)
+    """CAMBIO, se cambió por try/except"""
+    capacidad = 0
+    while True:
+        try:
+            cap_input = input("Capacidad máxima: ").strip()
+            capacidad = int(cap_input)
+            if capacidad <= 0:
+                raise ValueError
+            break
+        except ValueError:
+            print("Error: Debe ingresar un número entero positivo.")
 
     ubicacion = ""
     while ubicacion == "":
@@ -93,12 +116,25 @@ def altaSalon(salones):
         if ubicacion == "":
             print("La ubicación no puede estar vacía")
 
-    alq_txt = ""
-    while not alq_txt.isdigit() or int(alq_txt) <= 0:
-        alq_txt = input("Costo de alquiler: ").strip()
-        if not alq_txt.isdigit() or int(alq_txt) <= 0:
-            print("Error: el costo debe ser un número mayor a 0")
-    alquiler = float(alq_txt)
+    """CAMBIO, try/except"""
+    alquiler = 0.0
+    while True:
+        try:
+            alq_input = input("Costo de alquiler: ").strip()
+            alquiler = float(alq_input)
+            if alquiler <= 0:
+                raise ValueError
+            break
+        except ValueError:
+            print("Error: Debe ingresar un número mayor a cero.")
+
+    """NUEVO"""
+    email = ""
+    while True:
+        email = input("Email de contacto: ").strip()
+        if validar_email(email):
+            break
+        print("Error: Formato de email inválido (ejemplo: usuario@dominio.com).")
 
     servicios = {}
     i = 1
@@ -114,6 +150,7 @@ def altaSalon(salones):
         "capacidad": capacidad,
         "ubicacion": ubicacion,
         "alquiler": alquiler,
+        "email": email, """NUEVO"""
         "servicios": servicios,
         "activo": True
     }
@@ -122,39 +159,80 @@ def altaSalon(salones):
     return salones
 
 def modificarSalon(salones):
-    """
-    Modifica los datos de un salón existente a partir de su código.
+    """Modifica los datos de un salón existente a partir de su código.
     PARÁMETROS:
         salones: diccionario que contiene los salones del sistema.
     SALIDA:
         Diccionario actualizado con los cambios aplicados al salón indicado.
+        
     """
-    #Opción 2 del submenú de Gestión de Salones
     codigo = input("Código del salón a modificar: ").upper()
     if codigo not in salones or not salones[codigo]["activo"]:
         print("No encontrado o inactivo.")
         return salones
 
     salon = salones[codigo]
-    salon["nombre"] = input(f"Nombre [{salon['nombre']}]: ") or salon["nombre"]
-    salon["capacidad"] = int(input(f"Capacidad [{salon['capacidad']}]: ") or salon["capacidad"])
-    salon["ubicacion"] = input(f"Ubicación [{salon['ubicacion']}]: ") or salon["ubicacion"]
-    salon["alquiler"] = float(input(f"Alquiler [{salon['alquiler']}]: ") or salon["alquiler"])
+    """CAMBIO"""
+    nuevo_nombre = input(f"Nombre [{salon['nombre']}]: ").strip()
+    if nuevo_nombre != "":
+        salon["nombre"] = nuevo_nombre
+
+    """CAMBIO a try/except"""
+    while True:
+        nueva_cap = input(f"Capacidad [{salon['capacidad']}]: ").strip()
+        if nueva_cap == "":
+            break
+        try:
+            cap_int = int(nueva_cap)
+            if cap_int <= 0:
+                raise ValueError
+            salon["capacidad"] = cap_int
+            break
+        except ValueError:
+            print("Error: Debe ingresar un entero positivo.")
+
+    """CAMBIO"""
+    nuevo_ubic = input(f"Ubicación [{salon['ubicacion']}]: ").strip()
+    if nuevo_ubic != "":
+        salon["ubicacion"] = nuevo_ubic
+
+    """CAMBIO a try/except"""
+    while True:
+        nuevo_alq = input(f"Alquiler [{salon['alquiler']}]: ").strip()
+        if nuevo_alq == "":
+            break
+        try:
+            alq_float = float(nuevo_alq)
+            if alq_float <= 0:
+                raise ValueError
+            salon["alquiler"] = alq_float
+            break
+        except ValueError:
+            print("Error: Debe ingresar un número positivo.")
+
+    """NUEVO"""
+    email_actual = salon.get("email", "No registrado")
+    while True:
+        nuevo_email = input(f"Email [{email_actual}]: ").strip()
+        if nuevo_email == "":
+            break # Si está vacío, mantiene el valor original
+        if validar_email(nuevo_email):
+            salon["email"] = nuevo_email
+            break
+        else:
+            print("Error: Formato de email inválido.")
 
     guardar_json(SALONES_FILE, salones)
     print("Salón modificado")
     return salones
 
 def bajaSalon(salones):
-    """
-    Desactiva un salón existente según el código ingresado.
+    """Desactiva un salón existente según el código ingresado.
     PARÁMETROS:
         salones: diccionario con los salones del sistema.
     SALIDA:
         Diccionario actualizado con el salón marcado como inactivo.
     """
-
-    #Opción 3 del submenú de Gestión de Salones
     codigo = input("Código del salón: ").upper()
     if codigo in salones and salones[codigo]["activo"]:
         salones[codigo]["activo"] = False
@@ -165,24 +243,24 @@ def bajaSalon(salones):
     return salones
 
 def listarSalones(salones):
-    """
-    Muestra en pantalla todos los salones activos registrados en el sistema.
+    """Muestra en pantalla todos los salones activos registrados en el sistema.
     PARÁMETROS:
         salones: diccionario que contiene los datos de los salones.
     SALIDA:
         Ninguna (solo imprime información en pantalla).
     """
-    #Opción 4 del submenú de Gestión de Salones
     print("\n--- SALONES ACTIVOS ---")
     for c, d in salones.items():
         if d["activo"]:
+            email_info = d.get("email", "Sin email")
             print(f"{c} - {d['nombre']} ({d['ubicacion']}) Cap: {d['capacidad']} | ${d['alquiler']}")
+            print(f"  Email: {email_info}")
             print(f"  Servicios: {', '.join(d['servicios'].values())}")
     print("------------------------")
 
+
 def altaBanda(bandas):
-    """
-    Da de alta una nueva banda solicitando sus datos al usuario.
+    """Da de alta una nueva banda solicitando sus datos al usuario.
     PARÁMETROS:
         bandas: diccionario con todas las bandas registradas.
     SALIDA:
@@ -210,16 +288,25 @@ def altaBanda(bandas):
         if genero == "":
             print("El género no puede estar vacío")
             
-    costo_txt = ""
-    while not (costo_txt.replace(".", "", 1).isdigit()) or costo_txt == "" or float(costo_txt) <= 0:
-        costo_txt = input("Costo por media hora: ").strip().replace(",", ".")
-        if costo_txt == "" or not (costo_txt.replace(".", "", 1).isdigit()):
-            print("Error: ingrese un número válido (solo dígitos o punto)")
-        elif float(costo_txt) <= 0:
-            print("Error: el costo debe ser mayor a cero")
+    """CAMBIO a try/except"""
+    costo = 0.0
+    while True:
+        try:
+            costo_input = input("Costo por media hora: ").strip()
+            costo = float(costo_input)
+            if costo <= 0:
+                raise ValueError
+            break
+        except ValueError:
+            print("Error: Debe ingresar un número válido mayor a cero.")
 
-    costo = float(costo_txt)
-
+    """NUEVO"""
+    email = ""
+    while True:
+        email = input("Email de contacto: ").strip()
+        if validar_email(email):
+            break
+        print("Error: Formato de email inválido.")
 
     integrantes = {}
     i = 1
@@ -234,6 +321,7 @@ def altaBanda(bandas):
         "nombre": nombre,
         "genero": genero,
         "costo_media_hora": costo,
+        "email": email, """NUEVO"""
         "integrantes": integrantes,
         "activo": True
     }
@@ -243,31 +331,59 @@ def altaBanda(bandas):
     return bandas
 
 def modificarBanda(bandas):
-    """
-    Modifica los datos de una banda existente identificada por su código.
+    """Modifica los datos de una banda existente identificada por su código.
     PARÁMETROS:
         bandas: diccionario con las bandas cargadas en el sistema.
     SALIDA:
         Diccionario actualizado con los cambios aplicados a la banda.
     """
-
     codigo = input("Código de banda: ").upper()
     if codigo not in bandas or not bandas[codigo]["activo"]:
         print("Banda no encontrada o inactiva")
         return bandas
 
     banda = bandas[codigo]
-    banda["nombre"] = input(f"Nombre [{banda['nombre']}]: ") or banda["nombre"]
-    banda["genero"] = input(f"Género [{banda['genero']}]: ") or banda["genero"]
-    banda["costo_media_hora"] = float(input(f"Costo [{banda['costo_media_hora']}]: ") or banda["costo_media_hora"])
+    """CAMBIO"""
+    nuevo_nombre = input(f"Nombre [{banda['nombre']}]: ").strip()
+    if nuevo_nombre != "":
+        banda["nombre"] = nuevo_nombre
+        
+    nuevo_genero = input(f"Género [{banda['genero']}]: ").strip()
+    if nuevo_genero != "":
+        banda["genero"] = nuevo_genero
+
+    """CAMBIO a try/except"""
+    while True:
+        nuevo_costo = input(f"Costo [{banda['costo_media_hora']}]: ").strip()
+        if nuevo_costo == "":
+            break
+        try:
+            costo_float = float(nuevo_costo)
+            if costo_float <= 0:
+                raise ValueError
+            banda["costo_media_hora"] = costo_float
+            break
+        except ValueError:
+            print("Error: Debe ingresar un número positivo.")
+
+    """NUEVO"""
+    email_actual = banda.get("email", "No registrado")
+    while True:
+        nuevo_email = input(f"Email [{email_actual}]: ").strip()
+        if nuevo_email == "":
+            break
+        if validar_email(nuevo_email):
+            banda["email"] = nuevo_email
+            break
+        else:
+            print("Error: Formato de email inválido.")
 
     guardar_json(BANDAS_FILE, bandas)
     print("Banda modificada")
     return bandas
 
 def bajaBanda(bandas):
-    """
-    Desactiva una banda del sistema según el código ingresado.
+    """Desactiva una banda del sistema según el código ingresado.
     PARÁMETROS:
         bandas: diccionario con las bandas registradas.
     SALIDA:
@@ -283,24 +399,24 @@ def bajaBanda(bandas):
     return bandas
 
 def listarBandas(bandas):
-    """
-    Muestra en pantalla todas las bandas activas del sistema.
+    """Muestra en pantalla todas las bandas activas del sistema.
     PARÁMETROS:
         bandas: diccionario con la información de todas las bandas.
     SALIDA:
         Ninguna (solo imprime información en pantalla).
     """
-
     print("\n--- BANDAS ACTIVAS ---")
     for c, d in bandas.items():
         if d["activo"]:
+            email_info = d.get("email", "Sin email")
             print(f"{c} - {d['nombre']} ({d['genero']}) | ${d['costo_media_hora']}")
+            print(f"  Email: {email_info}")
             print(f"  Integrantes: {', '.join(d['integrantes'].values())}")
     print("----------------------")
 
+
 def registrarEvento(eventos, salones, bandas):
-    """
-    Registra un nuevo evento asignando salón, banda, duración y cálculo del costo total.
+    """Registra un nuevo evento asignando salón, banda, duración y cálculo del costo total.
     PARÁMETROS:
         eventos: diccionario donde se almacenan los eventos.
         salones: diccionario con los salones disponibles.
@@ -320,7 +436,18 @@ def registrarEvento(eventos, salones, bandas):
         print("Banda no válida.")
         return eventos
 
-    duracion = float(input("Duración (hs): "))
+    """CAMBIO a try/except"""
+    duracion = 0.0
+    while True:
+        try:
+            dur_input = input("Duración (hs): ").strip()
+            duracion = float(dur_input)
+            if duracion <= 0:
+                raise ValueError
+            break
+        except ValueError:
+            print("Error: La duración debe ser un número mayor a cero.")
+
     costo = bandas[codigo_banda]["costo_media_hora"] * (duracion * 2)
  
     fecha = datetime.now().strftime("%Y.%m.%d %H:%M:%S")
@@ -337,9 +464,9 @@ def registrarEvento(eventos, salones, bandas):
     print(f"Evento {codigo_evento} registrado. Costo total ${costo:,.2f}")
     return eventos
 
+
 def informe_eventos_mes(eventos, bandas, salones):
-    """
-    Muestra el detalle de todos los eventos realizados en el mes actual.
+    """Muestra el detalle de todos los eventos realizados en el mes actual.
     PARÁMETROS:
         eventos: diccionario con todos los eventos cargados.
         bandas: diccionario con las bandas registradas.
@@ -347,7 +474,6 @@ def informe_eventos_mes(eventos, bandas, salones):
     SALIDA:
         Ninguna (muestra el informe en pantalla).
     """
-
     print("\n--- EVENTOS DEL MES ---")
     mes_actual = datetime.now().strftime("%Y.%m")
     print(f"{'Fecha/Hora':20} {'Salón':20} {'Banda':20} {'Duración':10} {'Costo':10}")
@@ -363,21 +489,25 @@ def informe_eventos_mes(eventos, bandas, salones):
     print("-"*85)
 
 def resumen_cantidades(eventos, bandas):
-    """
-    Muestra una matriz con la cantidad de eventos por banda en cada mes del año.
+    """Muestra una matriz con la cantidad de eventos por banda en cada mes del año.
     PARÁMETROS:
         eventos: diccionario que almacena los eventos registrados.
         bandas: diccionario con las bandas activas.
     SALIDA:
         Ninguna (imprime la matriz en pantalla).
     """
-
     matriz = {b: [0]*12 for b in bandas if bandas[b]["activo"]}
     
     for ev in eventos.values():
-        mes = int(ev["fecha_hora"].split(".")[1]) - 1
-        banda = ev["codigo_banda"]
-        matriz[banda][mes] += 1
+        """CAMBIO, control de excepciones"""
+        try:
+            mes_str = ev["fecha_hora"].split(".")[1]
+            mes = int(mes_str) - 1
+            banda = ev["codigo_banda"]
+            if banda in matriz:
+                matriz[banda][mes] += 1
+        except (IndexError, ValueError):
+            pass
     
     meses = ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"]
     print("\n CANTIDAD TOTAL DE EVENTOS POR MES Y BANDA")
@@ -389,8 +519,7 @@ def resumen_cantidades(eventos, bandas):
     print("-"*95)
 
 def resumen_pesos(eventos, bandas):
-    """
-    Muestra el monto total generado por los eventos de cada banda, mes por mes.
+    """Muestra el monto total generado por los eventos de cada banda, mes por mes.
     PARÁMETROS:
         eventos: diccionario con los eventos registrados.
         bandas: diccionario con las bandas activas.
@@ -400,9 +529,15 @@ def resumen_pesos(eventos, bandas):
     matriz = {b: [0]*12 for b in bandas if bandas[b]["activo"]}
     
     for ev in eventos.values():
-        mes = int(ev["fecha_hora"].split(".")[1]) - 1
-        banda = ev["codigo_banda"]
-        matriz[banda][mes] += ev["costo_total"]
+        """CAMBIO, control de excepciones"""
+        try:
+            mes_str = ev["fecha_hora"].split(".")[1]
+            mes = int(mes_str) - 1
+            banda = ev["codigo_banda"]
+            if banda in matriz:
+                matriz[banda][mes] += ev["costo_total"]
+        except (IndexError, ValueError):
+            pass
     
     meses = ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"]
     print("\n MONTO TOTAL DE EVENTOS POR MES Y BANDA")
@@ -414,129 +549,127 @@ def resumen_pesos(eventos, bandas):
     print("-"*125)
 
 def bandas_mas_solicitadas(eventos, bandas):
-    """
-    Genera un ranking anual de las bandas más solicitadas, ordenadas por cantidad de eventos.
+    """Genera un ranking anual de las bandas más solicitadas, ordenadas por cantidad de eventos.
     PARÁMETROS:
         eventos: diccionario con todos los eventos registrados.
         bandas: diccionario con las bandas cargadas en el sistema.
     SALIDA:
         Ninguna (muestra el ranking en pantalla).
     """
-
     ranking = {}
     costos = {}
     for ev in eventos.values():
         b = ev["codigo_banda"]
-        if b in ranking:
-            ranking[b] = ranking[b] + 1  # Si ya existe, súmale 1
-        else:
-            ranking[b] = 1 # Si es la primera vez, inicia en 1 
+        if b in bandas:
+            if b in ranking:
+                ranking[b] = ranking[b] + 1  
+            else:
+                ranking[b] = 1 
             
-        if b in costos:
-            costos[b] = costos[b] + ev["costo_total"] # Si ya existe, suma el costo
-        else:
-            costos[b] = ev["costo_total"]
+            if b in costos:
+                costos[b] = costos[b] + ev["costo_total"] 
+            else:
+                costos[b] = ev["costo_total"]
     
-    orden = sorted(ranking.items(), reverse=True)
+    """Uso de función auxiliar 'ordenar_por_cantidad'"""
+    orden = sorted(ranking.items(), key=ordenar_por_cantidad, reverse=True)
     
     print("\nRANKING DE BANDAS MÁS SOLICITADAS")
     print(f"{'Banda':25} {'Cantidad de eventos':20} {'Costo total generado':20}")
     print("-"*85)
     for b, cant in orden:
-        print(f"{bandas[b]['nombre']:25} {cant:<20} ${costos[b]:<20,.2f}")
+        nombre_banda = bandas[b]['nombre']
+        print(f"{nombre_banda:25} {cant:<20} ${costos[b]:<20,.2f}")
     print("-"*85)
 
 #----------------------------------------------------------------------------------------------
 # CUERPO PRINCIPAL
 #----------------------------------------------------------------------------------------------
 def main():
-    #-------------------------------------------------
-    # Inicialización de variables
-    #-------------------------------------------------
     salones = cargar_json(SALONES_FILE, {})
     bandas  = cargar_json(BANDAS_FILE, {})
     eventos = cargar_json(EVENTOS_FILE, {})
-    """
+    '''
     salones = {
         "001": {"nombre": "Salón Dorado",
                 "capacidad": 150,
                 "ubicacion": "Recoleta",
                 "alquiler": 250000,
                 "servicios": {"serv1": "Catering",
-                              "serv2": "DJ",
-                              "serv3": "Decoración"},
+                            "serv2": "DJ",
+                            "serv3": "Decoración"},
                 "activo": True},
         "002": {"nombre": "Sky Lounge",
                 "capacidad": 200,
                 "ubicacion": "Palermoc Soho",
                 "alquiler": 300000,
                 "servicios": {"serv1": "Luces",
-                              "serv2": "Pantalla LED",
-                              "serv3": "Bar libre"},
+                            "serv2": "Pantalla LED",
+                            "serv3": "Bar libre"},
                 "activo": True},
         "003": {"nombre": "Espacio Lux",
                 "capacidad": 120,
                 "ubicacion": "San Telmo",
                 "alquiler": 180000,
                 "servicios": {"serv1": "Catering Premium",
-                              "serv2": "Iluminación",
-                              "serv3": "Escenario"},
+                            "serv2": "Iluminación",
+                            "serv3": "Escenario"},
                 "activo": True},
         "004": {"nombre": "Eventos Plaza",
                 "capacidad": 250,
                 "ubicacion": "Belgrano",
                 "alquiler": 320000,
                 "servicios": {"serv1": "Barra",
-                              "serv2": "Fotocabina",
-                              "serv3": "Pantalla gigante"},
+                            "serv2": "Fotocabina",
+                            "serv3": "Pantalla gigante"},
                 "activo": True},
         "005": {"nombre": "Terraza Río",
                 "capacidad": 180,
                 "ubicacion": "Puerto Madero",
                 "alquiler": 280000,
                 "servicios": {"serv1": "Vista al río",
-                              "serv2": "DJ residente",
-                              "serv3": "Catering marino"},
+                            "serv2": "DJ residente",
+                            "serv3": "Catering marino"},
                 "activo": True},
         "006": {"nombre": "Palacio Urbano",
                 "capacidad": 300,
                 "ubicacion": "Palermo",
                 "alquiler": 350000,
                 "servicios": {"serv1": "Catering Gourmet",
-                              "serv2": "Iluminación inteligente",
-                              "serv3": "Escenario principal"},
+                            "serv2": "Iluminación inteligente",
+                            "serv3": "Escenario principal"},
                 "activo": True},
         "007": {"nombre": "Jardines del Lago",
                 "capacidad": 220,
                 "ubicacion": "Costanera Norte",
                 "alquiler": 290000,
                 "servicios": {"serv1": "Espacio al aire libre",
-                              "serv2": "DJ y sonido envolvente",
-                              "serv3": "Catering orgánico"},
+                            "serv2": "DJ y sonido envolvente",
+                            "serv3": "Catering orgánico"},
                 "activo": True},
         "008": {"nombre": "Agora Premium",
                 "capacidad": 180,
                 "ubicacion": "Villa Urquiza",
                 "alquiler": 260000,
                 "servicios": {"serv1": "Pantalla LED 4K",
-                              "serv2": "Servicio de barra",
-                              "serv3": "Fotocabina"},
+                            "serv2": "Servicio de barra",
+                            "serv3": "Fotocabina"},
                 "activo": True},
         "009": {"nombre": "Luna Park View",
                 "capacidad": 400,
                 "ubicacion": "Microcentro",
                 "alquiler": 400000,
                 "servicios": {"serv1": "Catering internacional",
-                              "serv2": "Escenario giratorio",
-                              "serv3": "DJ residente"},
+                            "serv2": "Escenario giratorio",
+                            "serv3": "DJ residente"},
                 "activo": True},
         "010": {"nombre": "Bahia Lounge",
                 "capacidad": 150,
                 "ubicacion": "Puerto Madero",
                 "alquiler": 310000,
                 "servicios": {"serv1": "Vista panoramica al rio",
-                              "serv2": "Bar libre",
-                              "serv3": "Pantalla gigante"},
+                            "serv2": "Bar libre",
+                            "serv3": "Pantalla gigante"},
                 "activo": True}
     }
 
@@ -646,12 +779,8 @@ def main():
             "costo_total": bandas["009"]["costo_media_hora"] * (4 * 2)
         }
     }
-    """
-    #-------------------------------------------------
-    # Bloque de menú principal
-    #-------------------------------------------------
+    '''
     while True:
-        opciones = 4
         print()
         print("---------------------------")
         print("MENÚ DEL PROGRAMA")
