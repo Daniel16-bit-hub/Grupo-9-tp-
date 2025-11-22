@@ -118,5 +118,21 @@
             "serv3": "Pantalla gigante"
         },
         "activo": true
+    },
+    "4324": {
+        "nombre": "daniel",
+        "capacidad": 2134,
+        "ubicacion": "tres arroyos 679",
+        "alquiler": 234552.0,
+        "servicios": {},
+        "activo": true
+    },
+    "324": {
+        "nombre": "chau",
+        "capacidad": 4564,
+        "ubicacion": "tree",
+        "alquiler": 324.0,
+        "servicios": {},
+        "activo": true
     }
 }
