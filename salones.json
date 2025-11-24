@@ -1,138 +1,122 @@
 {
-    "001": {
-        "nombre": "Salón Dorado",
-        "capacidad": 150,
-        "ubicacion": "Recoleta",
-        "alquiler": 250000,
-        "servicios": {
-            "serv1": "Catering",
-            "serv2": "DJ",
-            "serv3": "Decoración"
-        },
-        "activo": true
+  "001": {
+    "nombre": "Salón Dorado",
+    "capacidad": 150,
+    "ubicacion": "Recoleta",
+    "alquiler": 250000,
+    "servicios": {
+      "serv1": "Catering",
+      "serv2": "DJ",
+      "serv3": "Decoración"
     },
-    "002": {
-        "nombre": "Sky Lounge",
-        "capacidad": 200,
-        "ubicacion": "Palermoc Soho",
-        "alquiler": 300000,
-        "servicios": {
-            "serv1": "Luces",
-            "serv2": "Pantalla LED",
-            "serv3": "Bar libre"
-        },
-        "activo": true
+    "activo": true
+  },
+  "002": {
+    "nombre": "Sky Lounge",
+    "capacidad": 200,
+    "ubicacion": "Palermoc Soho",
+    "alquiler": 300000,
+    "servicios": {
+      "serv1": "Luces",
+      "serv2": "Pantalla LED",
+      "serv3": "Bar libre"
     },
-    "003": {
-        "nombre": "Espacio Lux",
-        "capacidad": 120,
-        "ubicacion": "San Telmo",
-        "alquiler": 180000,
-        "servicios": {
-            "serv1": "Catering Premium",
-            "serv2": "Iluminación",
-            "serv3": "Escenario"
-        },
-        "activo": true
+    "activo": true
+  },
+  "003": {
+    "nombre": "Espacio Lux",
+    "capacidad": 120,
+    "ubicacion": "San Telmo",
+    "alquiler": 180000,
+    "servicios": {
+      "serv1": "Catering Premium",
+      "serv2": "Iluminación",
+      "serv3": "Escenario"
     },
-    "004": {
-        "nombre": "Eventos Plaza",
-        "capacidad": 250,
-        "ubicacion": "Belgrano",
-        "alquiler": 320000,
-        "servicios": {
-            "serv1": "Barra",
-            "serv2": "Fotocabina",
-            "serv3": "Pantalla gigante"
-        },
-        "activo": true
+    "activo": true
+  },
+  "004": {
+    "nombre": "Eventos Plaza",
+    "capacidad": 250,
+    "ubicacion": "Belgrano",
+    "alquiler": 320000,
+    "servicios": {
+      "serv1": "Barra",
+      "serv2": "Fotocabina",
+      "serv3": "Pantalla gigante"
     },
-    "005": {
-        "nombre": "Terraza Río",
-        "capacidad": 180,
-        "ubicacion": "Puerto Madero",
-        "alquiler": 280000,
-        "servicios": {
-            "serv1": "Vista al río",
-            "serv2": "DJ residente",
-            "serv3": "Catering marino"
-        },
-        "activo": true
+    "activo": true
+  },
+  "005": {
+    "nombre": "Terraza Río",
+    "capacidad": 180,
+    "ubicacion": "Puerto Madero",
+    "alquiler": 280000,
+    "servicios": {
+      "serv1": "Vista al río",
+      "serv2": "DJ residente",
+      "serv3": "Catering marino"
     },
-    "006": {
-        "nombre": "Palacio Urbano",
-        "capacidad": 300,
-        "ubicacion": "Palermo",
-        "alquiler": 350000,
-        "servicios": {
-            "serv1": "Catering Gourmet",
-            "serv2": "Iluminación inteligente",
-            "serv3": "Escenario principal"
-        },
-        "activo": true
+    "activo": true
+  },
+  "006": {
+    "nombre": "Palacio Urbano",
+    "capacidad": 300,
+    "ubicacion": "Palermo",
+    "alquiler": 350000,
+    "servicios": {
+      "serv1": "Catering Gourmet",
+      "serv2": "Iluminación inteligente",
+      "serv3": "Escenario principal"
     },
-    "007": {
-        "nombre": "Jardines del Lago",
-        "capacidad": 220,
-        "ubicacion": "Costanera Norte",
-        "alquiler": 290000,
-        "servicios": {
-            "serv1": "Espacio al aire libre",
-            "serv2": "DJ y sonido envolvente",
-            "serv3": "Catering orgánico"
-        },
-        "activo": true
+    "activo": true
+  },
+  "007": {
+    "nombre": "Jardines del Lago",
+    "capacidad": 220,
+    "ubicacion": "Costanera Norte",
+    "alquiler": 290000,
+    "servicios": {
+      "serv1": "Espacio al aire libre",
+      "serv2": "DJ y sonido envolvente",
+      "serv3": "Catering orgánico"
     },
-    "008": {
-        "nombre": "Agora Premium",
-        "capacidad": 180,
-        "ubicacion": "Villa Urquiza",
-        "alquiler": 260000,
-        "servicios": {
-            "serv1": "Pantalla LED 4K",
-            "serv2": "Servicio de barra",
-            "serv3": "Fotocabina"
-        },
-        "activo": true
+    "activo": true
+  },
+  "008": {
+    "nombre": "Agora Premium",
+    "capacidad": 180,
+    "ubicacion": "Villa Urquiza",
+    "alquiler": 260000,
+    "servicios": {
+      "serv1": "Pantalla LED 4K",
+      "serv2": "Servicio de barra",
+      "serv3": "Fotocabina"
     },
-    "009": {
-        "nombre": "Luna Park View",
-        "capacidad": 400,
-        "ubicacion": "Microcentro",
-        "alquiler": 400000,
-        "servicios": {
-            "serv1": "Catering internacional",
-            "serv2": "Escenario giratorio",
-            "serv3": "DJ residente"
-        },
-        "activo": true
+    "activo": true
+  },
+  "009": {
+    "nombre": "Luna Park View",
+    "capacidad": 400,
+    "ubicacion": "Microcentro",
+    "alquiler": 400000,
+    "servicios": {
+      "serv1": "Catering internacional",
+      "serv2": "Escenario giratorio",
+      "serv3": "DJ residente"
     },
-    "010": {
-        "nombre": "Bahia Lounge",
-        "capacidad": 150,
-        "ubicacion": "Puerto Madero",
-        "alquiler": 310000,
-        "servicios": {
-            "serv1": "Vista panoramica al rio",
-            "serv2": "Bar libre",
-            "serv3": "Pantalla gigante"
-        },
-        "activo": true
+    "activo": true
+  },
+  "010": {
+    "nombre": "Bahia Lounge",
+    "capacidad": 150,
+    "ubicacion": "Puerto Madero",
+    "alquiler": 310000,
+    "servicios": {
+      "serv1": "Vista panoramica al rio",
+      "serv2": "Bar libre",
+      "serv3": "Pantalla gigante"
     },
-    "4324": {
-        "nombre": "daniel",
-        "capacidad": 2134,
-        "ubicacion": "tres arroyos 679",
-        "alquiler": 234552.0,
-        "servicios": {},
-        "activo": true
-    },
-    "324": {
-        "nombre": "chau",
-        "capacidad": 4564,
-        "ubicacion": "tree",
-        "alquiler": 324.0,
-        "servicios": {},
-        "activo": true
-    }
+    "activo": true
+  }
 }
