@@ -45,7 +45,7 @@ def guardar_json(ruta, datos):
 #----------------------------------------------------------------------------------------------
 # FUNCIONES
 #----------------------------------------------------------------------------------------------
-"""NUEVO"""
+
 def validar_email(email):     
     """
     Valida si un email cumple con el formato estándar utilizando Expresiones Regulares.
@@ -56,9 +56,9 @@ def validar_email(email):
         return True
     return False
 
-"""NUEVO"""
+
 def ordenar_por_cantidad(item):
-    """Función auxiliar para ordenar el ranking (reemplaza uso de lambda)."""
+    """Función auxiliar para ordenar el ranking"""
     return item[1]
 
 def esperar_continuar():
@@ -78,9 +78,9 @@ def esperar_continuar():
 def altaSalon(salones):
     """Da de alta un nuevo salón solicitando sus datos al usuario.
     PARÁMETROS:
-        salones: diccionario con los salones registrados.
+        salones: diccionario con los salones registrados
     SALIDA:
-        Diccionario actualizado con el nuevo salón agregado.
+        Diccionario actualizado con el nuevo salón agregado
     """
 
     codigo = ""
@@ -98,7 +98,7 @@ def altaSalon(salones):
         if nombre == "":
             print("El nombre no puede quedar vacío")
 
-    """CAMBIO, se cambió por try/except"""
+    
     capacidad = 0
     while True:
         try:
@@ -108,7 +108,7 @@ def altaSalon(salones):
                 raise ValueError
             break
         except ValueError:
-            print("Error: Debe ingresar un número entero positivo.")
+            print("Error: Debe ingresar un número entero positivo")
 
     ubicacion = ""
     while ubicacion == "":
@@ -116,7 +116,7 @@ def altaSalon(salones):
         if ubicacion == "":
             print("La ubicación no puede estar vacía")
 
-    """CAMBIO, try/except"""
+    
     alquiler = 0.0
     while True:
         try:
@@ -126,15 +126,15 @@ def altaSalon(salones):
                 raise ValueError
             break
         except ValueError:
-            print("Error: Debe ingresar un número mayor a cero.")
+            print("Error: Debe ingresar un número mayor a cero")
 
-    """NUEVO"""
+    
     email = ""
     while True:
         email = input("Email de contacto: ").strip()
         if validar_email(email):
             break
-        print("Error: Formato de email inválido (ejemplo: usuario@dominio.com).")
+        print("Error: Formato de email inválido (ejemplo: usuario@dominio.com)")
 
     servicios = {}
     i = 1
@@ -161,9 +161,9 @@ def altaSalon(salones):
 def modificarSalon(salones):
     """Modifica los datos de un salón existente a partir de su código.
     PARÁMETROS:
-        salones: diccionario que contiene los salones del sistema.
+        salones: diccionario que contiene los salones del sistema
     SALIDA:
-        Diccionario actualizado con los cambios aplicados al salón indicado.
+        Diccionario actualizado con los cambios aplicados al salón indicado
         
     """
     codigo = input("Código del salón a modificar: ").upper()
@@ -172,12 +172,12 @@ def modificarSalon(salones):
         return salones
 
     salon = salones[codigo]
-    """CAMBIO"""
+    
     nuevo_nombre = input(f"Nombre [{salon['nombre']}]: ").strip()
     if nuevo_nombre != "":
         salon["nombre"] = nuevo_nombre
 
-    """CAMBIO a try/except"""
+    
     while True:
         nueva_cap = input(f"Capacidad [{salon['capacidad']}]: ").strip()
         if nueva_cap == "":
@@ -189,14 +189,14 @@ def modificarSalon(salones):
             salon["capacidad"] = cap_int
             break
         except ValueError:
-            print("Error: Debe ingresar un entero positivo.")
+            print("Error: Debe ingresar un entero positivo")
 
-    """CAMBIO"""
+    
     nuevo_ubic = input(f"Ubicación [{salon['ubicacion']}]: ").strip()
     if nuevo_ubic != "":
         salon["ubicacion"] = nuevo_ubic
 
-    """CAMBIO a try/except"""
+    
     while True:
         nuevo_alq = input(f"Alquiler [{salon['alquiler']}]: ").strip()
         if nuevo_alq == "":
@@ -208,9 +208,9 @@ def modificarSalon(salones):
             salon["alquiler"] = alq_float
             break
         except ValueError:
-            print("Error: Debe ingresar un número positivo.")
+            print("Error: Debe ingresar un número positivo")
 
-    """NUEVO"""
+    
     email_actual = salon.get("email", "No registrado")
     while True:
         nuevo_email = input(f"Email [{email_actual}]: ").strip()
@@ -229,9 +229,9 @@ def modificarSalon(salones):
 def bajaSalon(salones):
     """Desactiva un salón existente según el código ingresado.
     PARÁMETROS:
-        salones: diccionario con los salones del sistema.
+        salones: diccionario con los salones del sistema
     SALIDA:
-        Diccionario actualizado con el salón marcado como inactivo.
+        Diccionario actualizado con el salón marcado como inactivo
     """
     codigo = input("Código del salón: ").upper()
     if codigo in salones and salones[codigo]["activo"]:
@@ -245,9 +245,9 @@ def bajaSalon(salones):
 def listarSalones(salones):
     """Muestra en pantalla todos los salones activos registrados en el sistema.
     PARÁMETROS:
-        salones: diccionario que contiene los datos de los salones.
+        salones: diccionario que contiene los datos de los salones
     SALIDA:
-        Ninguna (solo imprime información en pantalla).
+        Ninguna (solo imprime información en pantalla)
     """
     print("\n--- SALONES ACTIVOS ---")
     for c, d in salones.items():
@@ -262,9 +262,9 @@ def listarSalones(salones):
 def altaBanda(bandas):
     """Da de alta una nueva banda solicitando sus datos al usuario.
     PARÁMETROS:
-        bandas: diccionario con todas las bandas registradas.
+        bandas: diccionario con todas las bandas registradas
     SALIDA:
-        Diccionario actualizado con la nueva banda agregada.
+        Diccionario actualizado con la nueva banda agregada
     """
 
     codigo = ""
@@ -288,7 +288,7 @@ def altaBanda(bandas):
         if genero == "":
             print("El género no puede estar vacío")
             
-    """CAMBIO a try/except"""
+    
     costo = 0.0
     while True:
         try:
@@ -298,15 +298,15 @@ def altaBanda(bandas):
                 raise ValueError
             break
         except ValueError:
-            print("Error: Debe ingresar un número válido mayor a cero.")
+            print("Error: Debe ingresar un número válido mayor a cero")
 
-    """NUEVO"""
+    
     email = ""
     while True:
         email = input("Email de contacto: ").strip()
         if validar_email(email):
             break
-        print("Error: Formato de email inválido.")
+        print("Error: Formato de email inválido")
 
     integrantes = {}
     i = 1
@@ -333,9 +333,9 @@ def altaBanda(bandas):
 def modificarBanda(bandas):
     """Modifica los datos de una banda existente identificada por su código.
     PARÁMETROS:
-        bandas: diccionario con las bandas cargadas en el sistema.
+        bandas: diccionario con las bandas cargadas en el sistema
     SALIDA:
-        Diccionario actualizado con los cambios aplicados a la banda.
+        Diccionario actualizado con los cambios aplicados a la banda
     """
     codigo = input("Código de banda: ").upper()
     if codigo not in bandas or not bandas[codigo]["activo"]:
@@ -343,7 +343,7 @@ def modificarBanda(bandas):
         return bandas
 
     banda = bandas[codigo]
-    """CAMBIO"""
+    
     nuevo_nombre = input(f"Nombre [{banda['nombre']}]: ").strip()
     if nuevo_nombre != "":
         banda["nombre"] = nuevo_nombre
@@ -352,7 +352,7 @@ def modificarBanda(bandas):
     if nuevo_genero != "":
         banda["genero"] = nuevo_genero
 
-    """CAMBIO a try/except"""
+    
     while True:
         nuevo_costo = input(f"Costo [{banda['costo_media_hora']}]: ").strip()
         if nuevo_costo == "":
@@ -364,9 +364,9 @@ def modificarBanda(bandas):
             banda["costo_media_hora"] = costo_float
             break
         except ValueError:
-            print("Error: Debe ingresar un número positivo.")
+            print("Error: Debe ingresar un número positivo")
 
-    """NUEVO"""
+    
     email_actual = banda.get("email", "No registrado")
     while True:
         nuevo_email = input(f"Email [{email_actual}]: ").strip()
@@ -376,7 +376,7 @@ def modificarBanda(bandas):
             banda["email"] = nuevo_email
             break
         else:
-            print("Error: Formato de email inválido.")
+            print("Error: Formato de email inválido")
 
     guardar_json(BANDAS_FILE, bandas)
     print("Banda modificada")
@@ -385,9 +385,9 @@ def modificarBanda(bandas):
 def bajaBanda(bandas):
     """Desactiva una banda del sistema según el código ingresado.
     PARÁMETROS:
-        bandas: diccionario con las bandas registradas.
+        bandas: diccionario con las bandas registradas
     SALIDA:
-        Diccionario actualizado con la banda marcada como inactiva.
+        Diccionario actualizado con la banda marcada como inactiva
     """
     codigo = input("Código de banda: ").upper()
     if codigo in bandas and bandas[codigo]["activo"]:
@@ -401,9 +401,9 @@ def bajaBanda(bandas):
 def listarBandas(bandas):
     """Muestra en pantalla todas las bandas activas del sistema.
     PARÁMETROS:
-        bandas: diccionario con la información de todas las bandas.
+        bandas: diccionario con la información de todas las bandas
     SALIDA:
-        Ninguna (solo imprime información en pantalla).
+        Ninguna (solo imprime información en pantalla)
     """
     print("\n--- BANDAS ACTIVAS ---")
     for c, d in bandas.items():
@@ -418,9 +418,9 @@ def listarBandas(bandas):
 def registrarEvento(eventos, salones, bandas):
     """Registra un nuevo evento asignando salón, banda, duración y cálculo del costo total.
     PARÁMETROS:
-        eventos: diccionario donde se almacenan los eventos.
-        salones: diccionario con los salones disponibles.
-        bandas: diccionario con las bandas activas.
+        eventos: diccionario donde se almacenan los eventos
+        salones: diccionario con los salones disponibles
+        bandas: diccionario con las bandas activas
     SALIDA:
         Diccionario 'eventos' actualizado con el nuevo evento registrado.
     """
@@ -428,15 +428,15 @@ def registrarEvento(eventos, salones, bandas):
     
     codigo_salon = input("Código del salón: ").upper()
     if codigo_salon not in salones or not salones[codigo_salon]["activo"]:
-        print("Salón no válido.")
+        print("Salón no válido")
         return eventos
 
     codigo_banda = input("Código de la banda: ").upper()
     if codigo_banda not in bandas or not bandas[codigo_banda]["activo"]:
-        print("Banda no válida.")
+        print("Banda no válida")
         return eventos
 
-    """CAMBIO a try/except"""
+    
     duracion = 0.0
     while True:
         try:
@@ -446,7 +446,7 @@ def registrarEvento(eventos, salones, bandas):
                 raise ValueError
             break
         except ValueError:
-            print("Error: La duración debe ser un número mayor a cero.")
+            print("Error: La duración debe ser un número mayor a cero")
 
     costo = bandas[codigo_banda]["costo_media_hora"] * (duracion * 2)
  
@@ -468,11 +468,11 @@ def registrarEvento(eventos, salones, bandas):
 def informe_eventos_mes(eventos, bandas, salones):
     """Muestra el detalle de todos los eventos realizados en el mes actual.
     PARÁMETROS:
-        eventos: diccionario con todos los eventos cargados.
-        bandas: diccionario con las bandas registradas.
-        salones: diccionario con los salones registrados.
+        eventos: diccionario con todos los eventos cargados
+        bandas: diccionario con las bandas registradas
+        salones: diccionario con los salones registrados
     SALIDA:
-        Ninguna (muestra el informe en pantalla).
+        Ninguna (muestra el informe en pantalla)
     """
     print("\n--- EVENTOS DEL MES ---")
     mes_actual = datetime.now().strftime("%Y.%m")
@@ -491,15 +491,14 @@ def informe_eventos_mes(eventos, bandas, salones):
 def resumen_cantidades(eventos, bandas):
     """Muestra una matriz con la cantidad de eventos por banda en cada mes del año.
     PARÁMETROS:
-        eventos: diccionario que almacena los eventos registrados.
-        bandas: diccionario con las bandas activas.
+        eventos: diccionario que almacena los eventos registrados
+        bandas: diccionario con las bandas activas
     SALIDA:
-        Ninguna (imprime la matriz en pantalla).
+        Ninguna (imprime la matriz en pantalla)
     """
     matriz = {b: [0]*12 for b in bandas if bandas[b]["activo"]}
     
     for ev in eventos.values():
-        """CAMBIO, control de excepciones"""
         try:
             mes_str = ev["fecha_hora"].split(".")[1]
             mes = int(mes_str) - 1
@@ -521,15 +520,14 @@ def resumen_cantidades(eventos, bandas):
 def resumen_pesos(eventos, bandas):
     """Muestra el monto total generado por los eventos de cada banda, mes por mes.
     PARÁMETROS:
-        eventos: diccionario con los eventos registrados.
-        bandas: diccionario con las bandas activas.
+        eventos: diccionario con los eventos registrados
+        bandas: diccionario con las bandas activas
     SALIDA:
-        Ninguna (imprime la matriz de montos).
+        Ninguna (imprime la matriz de montos)
     """
     matriz = {b: [0]*12 for b in bandas if bandas[b]["activo"]}
     
     for ev in eventos.values():
-        """CAMBIO, control de excepciones"""
         try:
             mes_str = ev["fecha_hora"].split(".")[1]
             mes = int(mes_str) - 1
@@ -549,12 +547,12 @@ def resumen_pesos(eventos, bandas):
     print("-"*125)
 
 def bandas_mas_solicitadas(eventos, bandas):
-    """Genera un ranking anual de las bandas más solicitadas, ordenadas por cantidad de eventos.
+    """Genera un ranking anual de las bandas más solicitadas, ordenadas por cantidad de eventos
     PARÁMETROS:
-        eventos: diccionario con todos los eventos registrados.
-        bandas: diccionario con las bandas cargadas en el sistema.
+        eventos: diccionario con todos los eventos registrados
+        bandas: diccionario con las bandas cargadas en el sistema
     SALIDA:
-        Ninguna (muestra el ranking en pantalla).
+        Ninguna (muestra el ranking en pantalla)
     """
     ranking = {}
     costos = {}
