@@ -9,7 +9,7 @@ Sistema informático para gestionar las bandas y salones que se asignan a difere
 calculando los costos del servicio. El sistema es utilizado por un único administrador.
 -----------------------------------------------------------------------------------------------
 """
-
+"""Comentario: Decidimos usar como clave para los eventos la palabra clave de "E001" y demás para mantener un orden ente bandas y salones que también utiliza este sistema de identificación"""
 #----------------------------------------------------------------------------------------------
 # MÓDULOS
 #----------------------------------------------------------------------------------------------
