@@ -82,9 +82,7 @@ def altaSalon(salones):
     SALIDA:
         Diccionario actualizado con el nuevo salón agregado
     """
-    print("\nLISTA ACTUAL DE SALONES")
-    listarSalones(salones) 
-    print("---------------------------------------------------------------")
+    
     codigo = ""
     while codigo == "":
         codigo = input("Código del salón (###): ").upper().strip()
